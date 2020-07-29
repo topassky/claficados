@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,8 @@ public class HomeFragment extends Fragment {
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
+
+    RadioButton r1,r2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,6 +60,9 @@ public class HomeFragment extends Fragment {
 
          */
 
+
+
+
         getImages(root);
 
         return root;
@@ -67,9 +73,6 @@ public class HomeFragment extends Fragment {
 
     private void getImages(View root) {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
-
-        mImageUrls.add("https://c1.staticflickr.com/5/4636/25316407448_de5fbf183d_o.jpg");
-        mNames.add("Havasu Falls");
 
         mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
         mNames.add("Trondheim");
