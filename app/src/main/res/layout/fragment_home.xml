@@ -12,7 +12,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,9 +87,10 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/radio0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:layout_weight="1" />
 
         <RadioButton
@@ -99,19 +100,19 @@
             android:layout_weight="1" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/radio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/radio4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </RadioGroup>

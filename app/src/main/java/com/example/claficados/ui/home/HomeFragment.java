@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +34,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
-    RadioButton r1,r2;
+    RecyclerView recyclerView;
+    RadioButton r1,r0,r2,r3,r4;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +61,52 @@ public class HomeFragment extends Fragment {
         webMagento.loadUrl(url);
 
          */
+        r0 =root.findViewById(R.id.radio0);
+        r1 = root.findViewById(R.id.radio1);
+        r2 = root.findViewById(R.id.radio2);
+        r3 =root.findViewById(R.id.radio3);
+        r4 = root.findViewById(R.id.radio4);
+
+        recyclerView =(RecyclerView)root.findViewById(R.id.recyclerView);
+
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                    //Dragging
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+
+                    int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    //Toast.makeText(getContext(), "indice"+position, Toast.LENGTH_SHORT).show();
+
+                    if (position==0){
+                        r0.setChecked(true);
+                    }
+                    if (position==1){
+                        r1.setChecked(true);
+                    }
+                    if (position==2){
+                        r2.setChecked(true);
+                    }
+                    if (position==3) {
+                        r3.setChecked(true);
+                    }
+                    if (position==4) {
+                        r4.setChecked(true);
+                    }
+
+
+                }
+
+
+
+            }
+
+        });
+
+
 
 
 
@@ -91,14 +139,7 @@ public class HomeFragment extends Fragment {
         mNames.add("Frozen Lake");
 
 
-        mImageUrls.add("https://i.redd.it/glin0nwndo501.jpg");
-        mNames.add("White Sands Desert");
 
-        mImageUrls.add("https://i.redd.it/obx4zydshg601.jpg");
-        mNames.add("Austrailia");
-
-        mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
-        mNames.add("Washington");
 
         initRecyclerView(root);
     }
