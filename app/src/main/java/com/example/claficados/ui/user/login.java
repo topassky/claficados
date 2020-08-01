@@ -1,4 +1,4 @@
-package com.example.claficados;
+package com.example.claficados.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.claficados.R;
 
 
 public class login extends AppCompatActivity {

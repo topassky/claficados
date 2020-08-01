@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.claficados.login">
+    tools:context="com.example.claficados.ui.user.login">
 
 
     <include
