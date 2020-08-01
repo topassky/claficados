@@ -23,6 +23,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.claficados.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.claficados.oi.utilities.urlCover;
+import static com.example.claficados.oi.utilities.urlmNames;
 
 public class HomeFragment extends Fragment {
 
@@ -35,7 +39,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
     RecyclerView recyclerView;
-    RadioButton r1,r0,r2,r3,r4;
+    RadioButton r1,r0,r2,r3,r4,r5;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class HomeFragment extends Fragment {
         r2 = root.findViewById(R.id.radio2);
         r3 =root.findViewById(R.id.radio3);
         r4 = root.findViewById(R.id.radio4);
-
+        r5 = root.findViewById(R.id.radio5);
         recyclerView =(RecyclerView)root.findViewById(R.id.recyclerView);
 
 
@@ -96,6 +100,10 @@ public class HomeFragment extends Fragment {
                     if (position==4) {
                         r4.setChecked(true);
                     }
+                    if (position==5) {
+                        r5.setChecked(true);
+                    }
+
 
 
                 }
@@ -107,10 +115,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-
-
         getImages(root);
 
         return root;
@@ -119,27 +123,15 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     private void getImages(View root) {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
-        mImageUrls.add("https://i.redd.it/tpsnoz5bzo501.jpg");
-        mNames.add("Trondheim");
+        for (int i=0;i<urlCover.length;i++){
+            mImageUrls.add(urlCover[i]);
+            mNames.add(urlmNames[i]);
 
-        mImageUrls.add("https://i.redd.it/qn7f9oqu7o501.jpg");
-        mNames.add("Portugal");
-
-        mImageUrls.add("https://i.redd.it/j6myfqglup501.jpg");
-        mNames.add("Rocky Mountain National Park");
-
-
-        mImageUrls.add("https://i.redd.it/0h2gm1ix6p501.jpg");
-        mNames.add("Mahahual");
-
-        mImageUrls.add("https://i.redd.it/k98uzl68eh501.jpg");
-        mNames.add("Frozen Lake");
-
-
-
+        }
 
         initRecyclerView(root);
     }
@@ -150,7 +142,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), mNames, mImageUrls);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter( getContext(), mNames, mImageUrls);
         recyclerView.setAdapter(adapter);
         Log.d(TAG, "initRecyclerView: init recyclerview");
     }
