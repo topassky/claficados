@@ -7,6 +7,7 @@ public class utilities {
             "https://i.redd.it/0h2gm1ix6p501.jpg",
             "https://i.redd.it/k98uzl68eh501.jpg",
             "http://www.comcop.com.co/persia/imgsApp/agregar.jpg"
+            "http://www.comcop.com.co/persia/imgsApp/agregar.jpg"
 
     };
 
@@ -15,7 +16,8 @@ public class utilities {
             "Rocky Mountain National Park",
             "Mahahual",
             "Frozen Lake",
-            "Ver más empresas"
+            "Ver más empresas",
+            "Hola"
 
     };
 
