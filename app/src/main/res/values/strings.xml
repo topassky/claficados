@@ -10,4 +10,6 @@
     <string name="menu_home">Inicio</string>
     <string name="menu_gallery">Buscar</string>
     <string name="menu_slideshow">Notificaciones</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu_thing">Objetos</string>
 </resources>

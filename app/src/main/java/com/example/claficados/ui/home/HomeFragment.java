@@ -30,7 +30,6 @@ import static com.example.claficados.oi.utilities.urlmNames;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
     String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
 
@@ -39,12 +38,12 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> mImageUrls = new ArrayList<>();
 
     RecyclerView recyclerView;
-    RadioButton r1,r0,r2,r3,r4,r5;
+   // RadioButton r1,r0,r2,r3,r4,r5;
+    TextView contador;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         /*
         final TextView textView = root.findViewById(R.id.text_home);
@@ -64,14 +63,18 @@ public class HomeFragment extends Fragment {
         settings.setJavaScriptEnabled(true);
         webMagento.loadUrl(url);
 
-         */
+
         r0 =root.findViewById(R.id.radio0);
         r1 = root.findViewById(R.id.radio1);
         r2 = root.findViewById(R.id.radio2);
         r3 =root.findViewById(R.id.radio3);
         r4 = root.findViewById(R.id.radio4);
         r5 = root.findViewById(R.id.radio5);
+
+         */
         recyclerView =(RecyclerView)root.findViewById(R.id.recyclerView);
+        contador = (TextView)root.findViewById(R.id.contador);
+
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -82,9 +85,11 @@ public class HomeFragment extends Fragment {
                     //Dragging
                 } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
 
-                    int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+                    int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition()+1;
                     //Toast.makeText(getContext(), "indice"+position, Toast.LENGTH_SHORT).show();
-
+                    String numposition= position+"";
+                    contador.setText(numposition+"-"+mImageUrls.size());
+/*
                     if (position==0){
                         r0.setChecked(true);
                     }
@@ -103,6 +108,8 @@ public class HomeFragment extends Fragment {
                     if (position==5) {
                         r5.setChecked(true);
                     }
+
+ */
 
 
 
