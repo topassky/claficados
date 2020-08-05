@@ -131,6 +131,10 @@ public class HomeFragment extends Fragment {
     }
 
 
+
+
+
+
     private void getImages(View root) {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
