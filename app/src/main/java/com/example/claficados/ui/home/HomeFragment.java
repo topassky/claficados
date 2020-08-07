@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.claficados.R;
@@ -32,7 +33,7 @@ import java.util.List;
 import static com.example.claficados.oi.utilities.urlCover;
 import static com.example.claficados.oi.utilities.urlmNames;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
 
     String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
@@ -104,7 +105,8 @@ public class HomeFragment extends Fragment {
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerView);
         contador = (TextView)view.findViewById(R.id.contador);
         contador.setText("1-"+urlCover.length);
-
+        LinearSnapHelper snapHelper  = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -119,6 +121,7 @@ public class HomeFragment extends Fragment {
                     //Toast.makeText(getContext(), "indice"+position, Toast.LENGTH_SHORT).show();
                     String numposition= position+"";
                     contador.setText(numposition+"-"+mImageUrls.size());
+
 /*
                     if (position==0){
                         r0.setChecked(true);
@@ -151,7 +154,12 @@ public class HomeFragment extends Fragment {
 
         });
 
+
+
+
+
         mImageUrls.clear();
+
         mNames.clear();
         getImages(view);
     }
