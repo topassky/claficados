@@ -63,6 +63,9 @@ public class txrx  extends AsyncTask<String, Void, String> {
         }else if (strings[1].equals("8")){  //consultar login
             regreso = funcionesRUD(cadena, "consultar");
             System.out.println("Verificando pas....");
+        }else if (strings[1].equals("9")){  //consultar login
+            regreso = funcionesRUD(cadena, "consultarg");
+            System.out.println("Verificando pas....");
         }else if (strings[1].equals("4")){  //Borrar
             regreso = funcionesRUD(cadena, "borrar");
         }
@@ -312,13 +315,18 @@ public class txrx  extends AsyncTask<String, Void, String> {
         try{
             //Se le asignan parametros al JSONObject
             System.out.println(" 279 TENSMOS====================\n===================\n"+(operacion));
-            if (!(operacion.equals("consultar"))) {
+            if (!(operacion.equals("consultar"))) {//Se refiere a consultar usuario exclusivamente
                 if (operacion.equals("borrar")) {
                     jsonParam.put("idalumno", variable1); //Se crea objeto JSON con el parametro a enviar, ejemplo {"idalumno":"0"}
                 } else if (operacion.equals("insertar")) {
                     jsonParam.put("nombre",variable1);
                     jsonParam.put("direccion", variable1);
-                } else if (operacion.equals("actualizar")) {
+                }else if (operacion.equals("consultarg")) {
+                    jsonParam.put("nombre",variable1);
+                    jsonParam.put("direccion", variable1);
+                }
+
+                else if (operacion.equals("actualizar")) {
                     jsonParam.put("idalumno", variable1); //Se crea objeto JSON con el parametro a enviar, ejemplo {"idalumno":"0"}
                     jsonParam.put("nombre", variable1);
                     jsonParam.put("direccion", variable1);
@@ -328,7 +336,8 @@ public class txrx  extends AsyncTask<String, Void, String> {
                 jsonParam.put("user", login.etEmail.getText().toString());
                 System.out.println("TXRX "+  login.etPassword.getText().toString()+ login.etEmail.getText().toString());
                 String paramas="?p1="+jsonParam.get("user")+"&p2="+jsonParam.get("password");
-                String Doninio="https://www.comcop.com.co/bikes/login.php";
+                String Doninio="http://www.comcop.com.co/persia/authen.php";
+                //String Doninio="https://www.comcop.com.co/bikes/login.php";
                 cadena=(Doninio+paramas);
                 System.out.println(Doninio);
             }
