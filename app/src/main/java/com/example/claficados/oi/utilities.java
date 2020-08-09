@@ -46,7 +46,7 @@ public class utilities {
     public static final String json = "json";
 
 
-
+/*
 
     public static String[] urlCover={"http://www.comcop.com.co/persia/image/profile.png",
             "http://www.comcop.com.co/persia/imgsApp/agregar.jpg",
@@ -67,5 +67,7 @@ public class utilities {
             "Hola"
 
     };
+
+ */
 
 }

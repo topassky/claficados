@@ -1,5 +1,6 @@
 package com.example.claficados.ui.slideshow;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,9 +23,9 @@ import com.example.claficados.R;
 public class SlideshowFragment extends Fragment {
 
 
-
+    ProgressDialog progressDialog;
     String url ="https://comcop.com.co/persia";
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,21 +33,28 @@ public class SlideshowFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
 
         final WebView webMagento=root.findViewById(R.id.webMagento);
-        final ProgressBar progressBar = root.findViewById(R.id.progressBarMagneto);
+        //final ProgressBar progressBar = root.findViewById(R.id.progressBarMagneto);
+
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("Consultado...");
+        progressDialog.show();
 
         webMagento.setWebViewClient(new MyWebViewClient(){
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                progressBar.setVisibility(view.VISIBLE);
+                //progressBar.setVisibility(view.VISIBLE);
+                progressDialog.hide();
 
             }
-
+/*
             @Override public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 progressBar.setVisibility(View.GONE);
 
             }
+
+ */
         });
 
 

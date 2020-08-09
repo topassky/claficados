@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" >
 
     </WebView>
-
+<!--
     <ProgressBar
         android:id="@+id/progressBarMagneto"
         style="?android:attr/progressBarStyle"
@@ -33,4 +33,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+        -->
 </androidx.constraintlayout.widget.ConstraintLayout>

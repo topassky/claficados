@@ -19,8 +19,8 @@ import com.example.claficados.ui.home.RecyclerViewAdapter;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
-import static com.example.claficados.oi.utilities.urlCover;
-import static com.example.claficados.oi.utilities.urlmNames;
+//import static com.example.claficados.oi.utilities.urlCover;
+//import static com.example.claficados.oi.utilities.urlmNames;
 
 
 public class thing extends Fragment {

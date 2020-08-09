@@ -1,39 +1,40 @@
 package com.example.claficados.ui.home;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
-import com.example.claficados.ui.thing.thing;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static com.example.claficados.oi.utilities.urlCover;
-import static com.example.claficados.oi.utilities.urlmNames;
+import static com.example.claficados.oi.utilities.json;
 
-public class HomeFragment extends Fragment{
+public class HomeFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
 
     String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
@@ -46,12 +47,16 @@ public class HomeFragment extends Fragment{
    // RadioButton r1,r0,r2,r3,r4,r5;
     TextView contador;
     Button btnPrductos;
-
+    ProgressDialog progressDialog;
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+    View viewg;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        viewg =root;
         return root;
 
     }
@@ -104,9 +109,12 @@ public class HomeFragment extends Fragment{
          */
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerView);
         contador = (TextView)view.findViewById(R.id.contador);
-        contador.setText("1-"+urlCover.length);
+        int total = json.length()-1;
+        contador.setText("1-"+total);
         LinearSnapHelper snapHelper  = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+
+        request = Volley.newRequestQueue(getContext());
 
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -161,22 +169,31 @@ public class HomeFragment extends Fragment{
         mImageUrls.clear();
 
         mNames.clear();
-        getImages(view);
+        getImages();
     }
 
-    private void getImages(View root) {
+    private void getImages() {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
-
+/*
         for (int i=0;i<urlCover.length;i++){
             mImageUrls.add(i,urlCover[i]);
             mNames.add(i,urlmNames[i]);
 
         }
 
+ */
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("Consultado...");
+        progressDialog.show();
+        String url = "http://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
+        jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        request.add(jsonObjectRequest);
 
 
-        initRecyclerView(root);
     }
+
+
+
 
     private void initRecyclerView(View root) {
 
@@ -189,7 +206,48 @@ public class HomeFragment extends Fragment{
         Log.d(TAG, "initRecyclerView: init recyclerview");
     }
 
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "No se puede conectar "+error.toString(), Toast.LENGTH_LONG).show();
+        System.out.println();
+        Log.d("ERROR: ", error.toString());
+        progressDialog.hide();
+
     }
+    @Override
+    public void onResponse(JSONObject response) {
+        //Portada portada = null;
+        JSONArray json=response.optJSONArray("portada");
+
+        try {
+
+            for (int i = 0; i < json.length(); i++) {
+                //portada = new Portada();
+                JSONObject jsonObject = null;
+                jsonObject = json.getJSONObject(i);
+
+                //portada.setUrl(jsonObject.optString("urlfoto"));
+                //portada.setNombre(jsonObject.optString("nombre"));
+                mImageUrls.add(i,jsonObject.optString("urlfoto"));
+                mNames.add(i,jsonObject.optString("nombre"));
+
+            }
+            progressDialog.hide();
+            initRecyclerView(viewg);
+        }catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " "+response, Toast.LENGTH_LONG).show();
+            progressDialog.hide();
+        }
+
+    }
+
+
+
+
+
+}
 /*
     private class MyWebViewClient extends WebViewClient{
         public boolean shouldOverrideUrlLoading(WebView view, String url){
