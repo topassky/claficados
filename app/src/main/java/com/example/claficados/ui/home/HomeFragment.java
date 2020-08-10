@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         btnPrductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"hola",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(),"hola",Toast.LENGTH_SHORT).show();
 
                 Navigation.findNavController(view).navigate(R.id.thing);
 
