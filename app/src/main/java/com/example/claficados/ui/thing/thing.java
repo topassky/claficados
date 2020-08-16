@@ -75,7 +75,7 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
-        String url = "http://comcop.com.co/persia/include/wsJSONConsultarProductos.php";
+        String url = "https://comcop.com.co/persia/include/wsJSONConsultarProductos.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
 

@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
-        String url = "http://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
+        String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
 
