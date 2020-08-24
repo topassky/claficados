@@ -188,6 +188,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
+        progressDialog.hide();
 
 
     }
@@ -204,6 +205,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         RecyclerViewAdapter adapter = new RecyclerViewAdapter( getContext(), mNames, mImageUrls);
         recyclerView.setAdapter(adapter);
         Log.d(TAG, "initRecyclerView: init recyclerview");
+        progressDialog.hide();
     }
 
     @Override
