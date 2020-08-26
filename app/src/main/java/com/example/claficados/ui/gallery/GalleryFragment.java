@@ -47,6 +47,7 @@ import java.io.IOException;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.app.Activity.RESULT_OK;
 
 
 public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -58,6 +59,8 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
     File fileImagen;
     Bitmap bitmap;
     Button btnFoto;
+
+    String photo = "photo.jpg";
 
     ImageView imgFoto;
 
@@ -104,11 +107,18 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
             btnFoto.setEnabled(false);
         }
 
-
+        try {
+            fileImagen = getPhotoFile(photo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-
+    private File getPhotoFile(String photo) throws IOException {
+        File storageDictory=getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(photo,".jpg",storageDictory);
+    }
 
 
     private boolean solicitaPermisosVersionesSuperiores() {
@@ -203,6 +213,9 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         //Intent i = new Intent(getContext(), CamaraActivity.class);
         //startActivity(i);
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileImagen);
+        Uri fileProvider=FileProvider.getUriForFile(getContext(),"com.example.claficados.fileprovider",fileImagen);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider);
         if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, COD_FOTO);
         }else{
@@ -210,8 +223,10 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         }
     }
 
+
+
     private void abriGaleria() {
-        Intent intent=new Intent(Intent.ACTION_GET_CONTENT,
+        Intent intent=new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/");
         startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
@@ -235,10 +250,12 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 break;
             case COD_FOTO:
-
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-                imgFoto.setImageBitmap(imageBitmap);
+                if (requestCode == COD_FOTO&& resultCode == RESULT_OK) {
+                    //Bundle extras = data.getExtras();
+                    //Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    Bitmap imageBitmap = BitmapFactory.decodeFile(fileImagen.getAbsolutePath());
+                    imgFoto.setImageBitmap(imageBitmap);
+                }
 
                 //Toast.makeText(getContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
                 //bitmap= BitmapFactory.decodeFile(path);
