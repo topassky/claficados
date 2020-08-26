@@ -79,7 +79,7 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnFoto = (Button)view.findViewById(R.id.btnFoto);
+        btnFoto = (Button) view.findViewById(R.id.btnFoto);
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,44 +91,26 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 popup.show();
 
 
-               // mostrarDialogOpciones();
             }
         });
 
-        imgFoto=(ImageView)view.findViewById(R.id.imgFoto);
+        imgFoto = (ImageView) view.findViewById(R.id.imgFoto);
 
         //Permisos
-        /*
-        if(solicitaPermisosVersionesSuperiores()){
+
+        if (solicitaPermisosVersionesSuperiores()) {
             btnFoto.setEnabled(true);
-        }else{
+        } else {
             btnFoto.setEnabled(false);
         }
 
-         */
 
-
-        if(allPermissionGrated()){
-
-
-        }else{
-            requestPermissions(REQUIRED_PERMISSONS,MIS_PERMISOS);
-        }
-        
 
     }
 
-    private boolean allPermissionGrated() {
-        for (String permission:REQUIRED_PERMISSONS){
-            if(ContextCompat.checkSelfPermission(getContext(),permission)!=PackageManager.PERMISSION_GRANTED){
-                return false;
-            }
-        }
-        return true;
-    }
 
 
-    /*
+
     private boolean solicitaPermisosVersionesSuperiores() {
         if (Build.VERSION.SDK_INT<Build.VERSION_CODES.M){//validamos si estamos en android menor a 6 para no buscar los permisos
             return true;
@@ -199,8 +181,6 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         alertOpciones.show();
     }
 
-     */
-
 
 
     @Override
@@ -218,6 +198,7 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
     }
 
+
     private void abriCamara() {
         //Intent i = new Intent(getContext(), CamaraActivity.class);
         //startActivity(i);
@@ -227,39 +208,7 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         }else{
             Toast.makeText(getContext(),"No se encuentra la camara",Toast.LENGTH_SHORT);
         }
-
     }
-
-
-/*
-    private void mostrarDialogOpciones() {
-        final CharSequence[] opciones={"Tomar Foto","Elegir de Galeria","Cancelar"};
-        final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setTitle("Elige una Opción");
-        builder.setItems(opciones, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("Tomar Foto")){
-                    //abriCamara();
-
-                    CamaraFragment camaraFragment = new CamaraFragment();
-                    //getFragmentManager().beginTransaction().add(R.id.contenedor,camaraFragment);
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.contenedor,camaraFragment);
-
-                }else{
-                    if (opciones[i].equals("Elegir de Galeria")){
-                        abriGaleria();
-                    }else{
-                        dialogInterface.dismiss();
-                    }
-                }
-            }
-        });
-        builder.show();
-    }
-
- */
 
     private void abriGaleria() {
         Intent intent=new Intent(Intent.ACTION_GET_CONTENT,
@@ -267,45 +216,7 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         intent.setType("image/");
         startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
     }
-/*
-    private void abriCamara() {
-        File miFile=new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
-        boolean isCreada=miFile.exists();
 
-        if(isCreada==false){
-            isCreada=miFile.mkdirs();
-        }
-
-        if(isCreada==true){
-            Long consecutivo= System.currentTimeMillis()/1000;
-            String nombre=consecutivo.toString()+".jpg";
-
-            path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
-                    +File.separator+nombre;//indicamos la ruta de almacenamiento
-
-            fileImagen=new File(path);
-
-            Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(fileImagen));
-
-            ////
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
-            {
-                String authorities=getContext().getPackageName()+".provider";
-                Uri imageUri= FileProvider.getUriForFile(getContext(),authorities,fileImagen);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-            }else
-            {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
-            }
-            startActivityForResult(intent,COD_FOTO);
-
-            ////
-
-        }
-    }
-
- */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
