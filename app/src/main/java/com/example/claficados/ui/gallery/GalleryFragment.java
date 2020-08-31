@@ -3,6 +3,7 @@ package com.example.claficados.ui.gallery;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -23,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -38,12 +41,23 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.claficados.MainActivity;
 import com.example.claficados.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -52,21 +66,16 @@ import static android.app.Activity.RESULT_OK;
 
 public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
 
-    private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
-    private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
-    private static final String DIRECTORIO_IMAGEN = CARPETA_PRINCIPAL + CARPETA_IMAGEN;//ruta carpeta de directorios
-    private String path;//almacena la ruta de la imagen
     File fileImagen;
     Bitmap bitmap;
-    Button btnFoto;
-
+    Button btnFoto,btnRegistra;
+    ProgressDialog progreso;
+    EditText campoNom,campoPrecio,campoDescripcion;
     String photo = "photo.jpg";
-
+    RequestQueue request;
     ImageView imgFoto;
-
+    StringRequest stringRequest;
     private final int MIS_PERMISOS = 100;
-    private String[] REQUIRED_PERMISSONS = new String[]{"android.permission.CAMERA",
-            "android.permission.WRITE_EXTERNAL_STORAGE"};
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
 
@@ -97,14 +106,31 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
             }
         });
 
+        request= Volley.newRequestQueue(getContext());
+
+        btnRegistra = (Button)view.findViewById(R.id.btnRegistrar);
+        btnRegistra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getContext(),"Estoy aqui",Toast.LENGTH_SHORT).show();
+                cargarWebService();
+
+            }
+        });
+
         imgFoto = (ImageView) view.findViewById(R.id.imgFoto);
 
+        campoNom = (EditText)view.findViewById(R.id.campoNom);
+        campoPrecio = (EditText)view.findViewById(R.id.campoPrecio);
+        campoDescripcion = (EditText)view.findViewById(R.id.campoDescripcion);
         //Permisos
 
         if (solicitaPermisosVersionesSuperiores()) {
             btnFoto.setEnabled(true);
+            btnRegistra.setEnabled(true);
         } else {
             btnFoto.setEnabled(false);
+            btnRegistra.setEnabled(false);
         }
 
         try {
@@ -113,6 +139,64 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
             e.printStackTrace();
         }
 
+    }
+
+    private void cargarWebService() {
+        progreso=new ProgressDialog(getContext());
+        progreso.setMessage("Cargando...");
+        progreso.show();
+
+        String url="https://www.comcop.com.co/persia/include/wsJSONRegistroMovil.php?";
+        stringRequest=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progreso.hide();
+                if (response.trim().equalsIgnoreCase("registra")){
+                    campoNom.setText("");
+                    campoPrecio.setText("");
+                    campoDescripcion.setText("");
+                    Toast.makeText(getContext(),"Se ha registrado con exito",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"No se ha registrado ",Toast.LENGTH_SHORT).show();
+                    Log.i("RESPUESTA: ",""+response);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+                progreso.hide();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                String nombre = campoNom.getText().toString().trim();
+                String precio = campoPrecio.getText().toString();
+                String descripcion = campoDescripcion.getText().toString();
+
+                String imagen=convertirImgString(bitmap);
+
+                Map<String,String> parametros=new HashMap<>();
+                parametros.put("nombre",nombre);
+                parametros.put("precio",precio);
+                parametros.put("descripcion",descripcion);
+                parametros.put("imagen",imagen);
+
+                return parametros;
+            }
+        };
+        request.add(stringRequest);
+    }
+
+    private String convertirImgString(Bitmap bitmap) {
+        ByteArrayOutputStream array=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString= Base64.encodeToString(imagenByte,Base64.DEFAULT);
+
+        return imagenString;
     }
 
     private File getPhotoFile(String photo) throws IOException {
@@ -239,12 +323,21 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         switch (requestCode){
             case COD_SELECCIONA:
-                Uri miPath=data.getData();
-                imgFoto.setImageURI(miPath);
-
                 try {
-                    bitmap=MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
-                    imgFoto.setImageBitmap(bitmap);
+                    if(data!=null){
+                        Uri miPath=data.getData();
+                        imgFoto.setImageURI(miPath);
+
+                        if(miPath!=null){
+                        bitmap=MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
+                        imgFoto.setImageBitmap(bitmap);
+                        }
+
+                    }else{
+                        Toast.makeText(getContext(),"No se eligio ninguna foto",Toast.LENGTH_SHORT).show();
+                    }
+
+
                 } catch (IOException e) {
                     e.printStackTrace();}
 
@@ -253,8 +346,8 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 if (requestCode == COD_FOTO&& resultCode == RESULT_OK) {
                     //Bundle extras = data.getExtras();
                     //Bitmap imageBitmap = (Bitmap) extras.get("data");
-                    Bitmap imageBitmap = BitmapFactory.decodeFile(fileImagen.getAbsolutePath());
-                    imgFoto.setImageBitmap(imageBitmap);
+                    bitmap = BitmapFactory.decodeFile(fileImagen.getAbsolutePath());
+                    imgFoto.setImageBitmap(bitmap);
                 }
 
                 //Toast.makeText(getContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
