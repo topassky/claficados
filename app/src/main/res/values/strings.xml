@@ -13,5 +13,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="menu_thing">Objetos</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Thing fragment</string>
+    <string name="thing_new_fragment">Thing new fragment</string>
 </resources>

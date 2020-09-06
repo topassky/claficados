@@ -27,4 +27,9 @@
         android:name="com.example.claficados.ui.thing.thing"
         android:label="fragment_thing"
         tools:layout="@layout/fragment_thing" />
+    <fragment
+        android:id="@+id/thingNewFragment"
+        android:name="com.example.claficados.ui.newthing.ThingNewFragment"
+        android:label="fragment_thing_new"
+        tools:layout="@layout/fragment_thing_new" />
 </navigation>

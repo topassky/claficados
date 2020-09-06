@@ -62,6 +62,8 @@ import java.util.Map;
 import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
+import static com.example.claficados.ui.gallery.Image.convertirImgString;
+import static com.example.claficados.ui.gallery.Image.redimensionarImagen;
 
 
 public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -190,14 +192,6 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
         request.add(stringRequest);
     }
 
-    private String convertirImgString(Bitmap bitmap) {
-        ByteArrayOutputStream array=new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
-        byte[] imagenByte=array.toByteArray();
-        String imagenString= Base64.encodeToString(imagenByte,Base64.DEFAULT);
-
-        return imagenString;
-    }
 
     private File getPhotoFile(String photo) throws IOException {
         File storageDictory=getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -343,7 +337,7 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
                 break;
             case COD_FOTO:
-                if (requestCode == COD_FOTO&& resultCode == RESULT_OK) {
+                if (requestCode == COD_FOTO && resultCode == RESULT_OK) {
                     //Bundle extras = data.getExtras();
                     //Bitmap imageBitmap = (Bitmap) extras.get("data");
                     bitmap = BitmapFactory.decodeFile(fileImagen.getAbsolutePath());
@@ -355,7 +349,10 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
                 //imgFoto.setImageBitmap(bitmap);
                 break;
         }
+
+        bitmap=redimensionarImagen(bitmap,600,800);
     }
+
 
 
 

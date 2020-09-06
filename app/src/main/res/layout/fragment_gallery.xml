@@ -1,91 +1,125 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idLayoutRegistrar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/idLayoutRegistrar"
     tools:context=".ui.gallery.GalleryFragment">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="REGISTRAR USUARIOS"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
+        android:text="REGISTRAR USUARIOS"
         android:textSize="20sp"
-        android:layout_marginBottom="20dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/campoNom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="5"
-            android:textSize="20dp"
-            android:hint="Nombre"/>
+    <EditText
+        android:id="@+id/campoNom"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_weight="5"
+        android:hint="Nombre"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-        <Button
-            android:id="@+id/btnFoto"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:text="Foto"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnFoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:text="Foto"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/campoPrecio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/campoPrecio"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Precio"/>
+        android:layout_height="0dp"
+        android:hint="Precio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoNom" />
 
     <EditText
         android:id="@+id/campoDescripcion"
         android:layout_width="match_parent"
-        android:layout_height="205dp"
-        android:hint="Descripción del Producto"
+        android:layout_height="0dp"
         android:gravity="clip_horizontal"
+        android:hint="Descripción del Producto"
         android:inputType="textMultiLine"
-        />
-
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoPrecio" />
 
     <ImageView
         android:id="@+id/imgFoto"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@mipmap/noimg"
-        android:layout_gravity="center"
-        android:layout_below="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
-
-
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:src="@mipmap/noimg"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/campoDescripcion"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btnRegistrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorAccent"
-        android:textColor="@android:color/white" />
+        android:text="Registrar"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.48" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.77" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

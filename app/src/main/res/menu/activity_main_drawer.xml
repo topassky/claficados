@@ -20,5 +20,9 @@
             android:id="@+id/thing"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_thing" />
+        <item
+            android:id="@+id/thingNewFragment"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/thing_new_fragment" />
     </group>
 </menu>
