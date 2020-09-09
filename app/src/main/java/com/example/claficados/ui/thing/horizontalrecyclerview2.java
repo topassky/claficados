@@ -22,19 +22,15 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
     private static final String TAG = "RecyclerViewAdapter";
 
     //vars
-    private ArrayList<String> mNames2 = new ArrayList<>();
-    private ArrayList<String> mImageUrls2 = new ArrayList<>();
-    private ArrayList<String> mDescription2 = new ArrayList<>();
     private Context mContext2;
+    ArrayList<ProductsVo> lisrProductsVo;
 
-
-    public horizontalrecyclerview2 (Context context, ArrayList<String> names, ArrayList<String> imageUrls,
-                                    ArrayList<String> Description2) {
-        mNames2 = names;
-        mImageUrls2 = imageUrls;
-        mDescription2 = Description2;
-        mContext2 = context;
+    public horizontalrecyclerview2(Context mContext2, ArrayList<ProductsVo> lisrProductsVo) {
+        this.mContext2 = mContext2;
+        this.lisrProductsVo = lisrProductsVo;
     }
+
+
     @NonNull
     @Override
     public viewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,17 +42,21 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
     public void onBindViewHolder(@NonNull viewHolder2 holder, final int position) {
         Glide.with(mContext2)
                 .asBitmap()
-                .load(mImageUrls2.get(position))
+                .load(lisrProductsVo.get(position).getmImageUrls2())
                 .into(holder.imageViewThing);
 
-        holder.textViewNameThing.setText(mNames2.get(position));
-        holder.textViewdescriptionThing.setText(mDescription2 .get(position));
+        holder.textViewNameThing.setText(lisrProductsVo.get(position).getmNames2());
+        holder.textViewdescriptionThing.setText(lisrProductsVo.get(position).getmDescription2());
+        holder.textTitleBody.setText(lisrProductsVo.get(position).getmNameBody());
+        holder.textDescriptionBody.setText(lisrProductsVo.get(position).getmDescriptionBody());
+        holder.textAdsTitle.setText(lisrProductsVo.get(position).getTextAdsTitle());
+        holder.textAds.setText(lisrProductsVo.get(position).getTextAds());
 
         holder.imageViewThing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames2.get(position));
-                Toast.makeText(mContext2, mNames2.get(position), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onClick: clicked on an image: " + lisrProductsVo.get(position).getmNames2());
+                Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -64,18 +64,24 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
 
     @Override
     public int getItemCount() {
-        return mImageUrls2.size();
+        return lisrProductsVo.size();
     }
 
     public class viewHolder2 extends RecyclerView.ViewHolder{
         ImageView imageViewThing;
-        TextView textViewNameThing,textViewdescriptionThing;
+        TextView textViewNameThing,textViewdescriptionThing
+                ,textTitleBody, textDescriptionBody,
+                textAdsTitle,textAds;
 
         public viewHolder2(@NonNull View itemView) {
             super(itemView);
             imageViewThing = itemView.findViewById(R.id.idImagen);
             textViewNameThing =  itemView.findViewById(R.id.idNombre);
             textViewdescriptionThing = itemView.findViewById(R.id.idInfo);
+            textTitleBody = itemView.findViewById(R.id.textTitleBody);
+            textDescriptionBody = itemView.findViewById(R.id.textDescriptionBody );
+            textAdsTitle =itemView.findViewById(R.id.textAdsTitle);
+            textAds = itemView.findViewById(R.id.textAds);
         }
     }
 }

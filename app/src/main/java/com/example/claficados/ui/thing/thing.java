@@ -22,7 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
-import com.example.claficados.ui.home.RecyclerViewAdapter;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,10 +36,14 @@ import static android.content.ContentValues.TAG;
 
 
 public class thing extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
-
+    /*
     private ArrayList<String> mNames2 = new ArrayList<>();
     private ArrayList<String> mImageUrls2 = new ArrayList<>();
     private ArrayList<String> mDescription2 = new ArrayList<>();
+
+     */
+
+    ArrayList<ProductsVo> lisrProductsVo;
 
     RecyclerView recyclerView2;
 
@@ -86,10 +90,11 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
     }
 
     private void initRecyclerView(View root) {
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerViewThing);
         recyclerView.setLayoutManager(layoutManager);
-        horizontalrecyclerview2 adapter2 = new horizontalrecyclerview2( getContext(), mNames2, mImageUrls2,mDescription2);
+        horizontalrecyclerview2 adapter2 = new horizontalrecyclerview2( getContext(),lisrProductsVo);
         recyclerView.setAdapter(adapter2);
         Log.d(TAG, "initRecyclerView: init recyclerview");
     }
@@ -97,7 +102,7 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
     @Override
     public void onResponse(JSONObject response) {
         JSONArray json=response.optJSONArray("productos");
-
+        lisrProductsVo =new ArrayList<>();
         try {
 
             for (int i = 0; i < json.length(); i++) {
@@ -107,9 +112,13 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
 
                 //portada.setUrl(jsonObject.optString("urlfoto"));
                 //portada.setNombre(jsonObject.optString("nombre"));
-                mImageUrls2.add(i,jsonObject.optString("urlfoto"));
-                mNames2.add(i,jsonObject.optString("nombre"));
-                mDescription2.add(i,jsonObject.optString("descripcion"));
+                lisrProductsVo.add(new ProductsVo(jsonObject.optString("nombre"),
+                        jsonObject.optString("urlfoto"),
+                        jsonObject.optString("descripcion"),
+                        "Esto es el nombre del cuerpo",
+                        "Esto es la descripción del cuerpo","Estes el decuento",
+                        "Aqui se calcula el descuento"));
+
 
             }
             progressDialog.hide();
