@@ -180,13 +180,11 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
             mNames.add(i,urlmNames[i]);
 
         }
-
  */
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
         String lleveCMP= "?lleve={";// json con los parametros de preferencias de usuariopropongo
-
         ///////PROTOCOLO///////
         //version (sep-9-2020)
         String version="11.9.4";
@@ -200,21 +198,14 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         //128bits=16 bytes
         String preferencias="asdfghjkloiuytrf";
         //pagina , reset y EOF
-        lleveCMP=lleveCMP+version+llaves+"="+sesion+preferencias+"}";
-        String url = "https://www.comcop.co/run2.php"+ lleveCMP;
+        lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
+        String url = "https://www.comcop.co/run2.php?lleve=x";//+ lleveCMP;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
         progressDialog.hide();
-
-
     }
 
-
-
-
     private void initRecyclerView(View root) {
-
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
