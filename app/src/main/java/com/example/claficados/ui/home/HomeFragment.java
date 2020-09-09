@@ -185,7 +185,23 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
-        String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
+        String lleveCMP= "?lleve={";// json con los parametros de preferencias de usuariopropongo
+
+        ///////PROTOCOLO///////
+        //version (sep-9-2020)
+        String version="11.9.4";
+        //Laves
+        String llaves="PROVPROV";
+        //Solicitud( codigo sesion, )
+        String sesion="PROVPROV";//"Establecer desde contantes";
+        // cadena de n bits que describan cada uno de los productos que de una u otra manera han sido motivo de reaccion del usuario
+        //Ej  ropa   gimnasio    mascotas    corbatas    ...   mensajerìa        Veterinarios      taxis
+        //       1         1          0           0        ...      0                   0              1
+        //128bits=16 bytes
+        String preferencias="asdfghjkloiuytrf";
+        //pagina , reset y EOF
+        lleveCMP=lleveCMP+version+llaves+"="+sesion+preferencias+"}";
+        String url = "https://www.comcop.co/run2.php"+ lleveCMP;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
         progressDialog.hide();
