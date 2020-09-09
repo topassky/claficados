@@ -199,7 +199,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         String preferencias="asdfghjkloiuytrf";
         //pagina , reset y EOF
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
-        String url = "https://www.comcop.co/run2.php?lleve=x";//+ lleveCMP;
+        String url = "https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
         progressDialog.hide();
