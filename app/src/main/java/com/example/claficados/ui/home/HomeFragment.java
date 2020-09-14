@@ -200,7 +200,11 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         //pagina , reset y EOF
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
         String url = "https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+        //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
+
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        System.out.println("LOG CMP CA");
+        System.out.println(jsonObjectRequest);
         request.add(jsonObjectRequest);
         progressDialog.hide();
     }
