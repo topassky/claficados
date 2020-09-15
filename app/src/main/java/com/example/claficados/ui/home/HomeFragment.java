@@ -38,6 +38,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
     String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
+    ArrayList<CoverPageVo> listCoverPageVo;
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();
@@ -130,30 +131,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                     String numposition= position+"";
                     contador.setText(numposition+"-"+mImageUrls.size());
 
-/*
-                    if (position==0){
-                        r0.setChecked(true);
-                    }
-                    if (position==1){
-                        r1.setChecked(true);
-                    }
-                    if (position==2){
-                        r2.setChecked(true);
-                    }
-                    if (position==3) {
-                        r3.setChecked(true);
-                    }
-                    if (position==4) {
-                        r4.setChecked(true);
-                    }
-                    if (position==5) {
-                        r5.setChecked(true);
-                    }
-
- */
-
-
-
                 }
 
 
@@ -174,13 +151,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
     private void getImages() {
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
-/*
-        for (int i=0;i<urlCover.length;i++){
-            mImageUrls.add(i,urlCover[i]);
-            mNames.add(i,urlmNames[i]);
 
-        }
- */
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
@@ -213,7 +184,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(layoutManager);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter( getContext(), mNames, mImageUrls);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter( getContext(), listCoverPageVo);
         recyclerView.setAdapter(adapter);
         Log.d(TAG, "initRecyclerView: init recyclerview");
         progressDialog.hide();
@@ -231,7 +202,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     public void onResponse(JSONObject response) {
         //Portada portada = null;
         JSONArray json=response.optJSONArray("portada");
-
+        listCoverPageVo = new ArrayList<CoverPageVo>();
         try {
 
             for (int i = 0; i < json.length(); i++) {
@@ -241,8 +212,10 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
                 //portada.setUrl(jsonObject.optString("urlfoto"));
                 //portada.setNombre(jsonObject.optString("nombre"));
-                mImageUrls.add(i,jsonObject.optString("urlfoto"));
-                mNames.add(i,jsonObject.optString("nombre"));
+                //mImageUrls.add(i,jsonObject.optString("urlfoto"));
+                //mNames.add(i,jsonObject.optString("nombre"));
+                listCoverPageVo.add(new CoverPageVo(jsonObject.optString("nombre"),
+                        jsonObject.optString("urlfoto")));
 
             }
             progressDialog.hide();
@@ -261,15 +234,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
 
 }
-/*
-    private class MyWebViewClient extends WebViewClient{
-        public boolean shouldOverrideUrlLoading(WebView view, String url){
-            view.loadUrl(url);
-            return true;
-        }
-    }
 
- */
 
 
 

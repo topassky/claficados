@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.claficados.R;
+import com.example.claficados.ui.thing.ProductsVo;
 
 import java.util.ArrayList;
 
@@ -23,14 +24,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private static final String TAG = "RecyclerViewAdapter";
     //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
+    //private ArrayList<String> mNames = new ArrayList<>();
+    //private ArrayList<String> mImageUrls = new ArrayList<>();
     private Context mContext;
+    ArrayList<CoverPageVo> listCoverPagerVo;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> names, ArrayList<String> imageUrls) {
-        mNames = names;
-        mImageUrls = imageUrls;
-        mContext = context;
+    public RecyclerViewAdapter(Context mContext, ArrayList<CoverPageVo> listCoverPagerVo) {
+        this.mContext = mContext;
+        this.listCoverPagerVo = listCoverPagerVo;
     }
 
     @NonNull
@@ -50,16 +51,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Log.d(TAG, "onBindViewHolder: called.");
         Glide.with(mContext)
                 .asBitmap()
-                .load(mImageUrls.get(position))
+                .load(listCoverPagerVo.get(position).getmImageUrls())
                 .into(holder.image);
 
-        holder.name.setText(mNames.get(position));
+        holder.name.setText(listCoverPagerVo.get(position).getmNames());
 
 
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, "onClick: clicked on an image: " + mNames.get(position));
+                Log.d(TAG, "onClick: clicked on an image: " + listCoverPagerVo.get(position).getmNames());
                 Toast.makeText(mContext, "indice"+position, Toast.LENGTH_SHORT).show();
 
             }
@@ -70,7 +71,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
 
-        return mImageUrls.size();
+        return listCoverPagerVo.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
