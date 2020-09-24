@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
+import com.example.claficados.ui.gallery.GalleryFragment;
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,17 +37,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.example.claficados.oi.utilities.json;
+import me.ibrahimsn.lib.BottomBarItem;
+import me.ibrahimsn.lib.BottomBarParser;
 
-public class HomeFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
+
+public class HomeFragment extends Fragment implements Response.Listener<JSONObject>,
+        Response.ErrorListener{
 
     String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
     ArrayList<CoverPageVo> listCoverPageVo;
-
-    //vars
-    private ArrayList<String> mNames = new ArrayList<>();
-    private ArrayList<String> mImageUrls = new ArrayList<>();
 
     RecyclerView recyclerView;
    // RadioButton r1,r0,r2,r3,r4,r5;
@@ -52,6 +56,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     View viewg;
+    BottomBarItem bottomBarItem;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -66,7 +71,20 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        listCoverPageVo = new ArrayList<CoverPageVo>();
         btnPrductos = (Button)view.findViewById(R.id.Productos);
+
+
+
+        /*PopupMenu popup = new PopupMenu(getContext(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_foto, popup.getMenu());
+        popup.setOnMenuItemClickListener(HomeFragment.this);
+        popup.show();
+         */
+
+
+
         btnPrductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,10 +95,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
             }
         });
 
-
-
-
-
         /*
         final TextView textView = root.findViewById(R.id.text_home);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -89,8 +103,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                 textView.setText(s);
             }
         });
-
-
 
         final WebView webMagento=root.findViewById(R.id.webMagento);
         webMagento.setWebViewClient(new MyWebViewClient());
@@ -110,7 +122,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
          */
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerView);
         contador = (TextView)view.findViewById(R.id.contador);
-        int total = json.length()-1;
+        int total = listCoverPageVo.size();
         contador.setText("1-"+total);
         LinearSnapHelper snapHelper  = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
@@ -129,23 +141,17 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                     int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition()+1;
                     //Toast.makeText(getContext(), "indice"+position, Toast.LENGTH_SHORT).show();
                     String numposition= position+"";
-                    contador.setText(numposition+"-"+mImageUrls.size());
-
+                    contador.setText(numposition+"-"+listCoverPageVo.size());
+                    //contador.setText(numposition+"-"+mImageUrls.size());
                 }
-
-
 
             }
 
         });
 
-
-
-
-
-        mImageUrls.clear();
-
-        mNames.clear();
+        listCoverPageVo.clear();
+        //mImageUrls.clear();
+        //mNames.clear();
         getImages();
     }
 
@@ -153,7 +159,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         Log.d(TAG, "initImageBitmaps: preparing bitmaps.");
 
         progressDialog=new ProgressDialog(getContext());
-        progressDialog.setMessage("Consultado...");
+        progressDialog.setMessage("Consultado Home...");
         progressDialog.show();
         String lleveCMP= "?lleve={";// json con los parametros de preferencias de usuariopropongo
         ///////PROTOCOLO///////
@@ -202,7 +208,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     public void onResponse(JSONObject response) {
         //Portada portada = null;
         JSONArray json=response.optJSONArray("portada");
-        listCoverPageVo = new ArrayList<CoverPageVo>();
+
         try {
 
             for (int i = 0; i < json.length(); i++) {
@@ -218,8 +224,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                         jsonObject.optString("urlfoto")));
 
             }
-            progressDialog.hide();
             initRecyclerView(viewg);
+            progressDialog.hide();
         }catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
@@ -228,6 +234,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         }
 
     }
+
+
 
 
 

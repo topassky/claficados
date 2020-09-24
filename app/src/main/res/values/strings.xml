@@ -15,4 +15,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Thing fragment</string>
     <string name="thing_new_fragment">Thing new fragment</string>
+    <string name="products">Productos</string>
+    <string name="search">Buscar</string>
+    <string name="services">Servicios</string>
 </resources>

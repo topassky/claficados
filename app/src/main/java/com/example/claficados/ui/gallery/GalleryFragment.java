@@ -64,6 +64,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.app.Activity.RESULT_OK;
 import static com.example.claficados.ui.gallery.Image.convertirImgString;
 import static com.example.claficados.ui.gallery.Image.redimensionarImagen;
+//import static com.example.claficados.ui.home.HomeFragment.progressDialog;
 
 
 public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemClickListener {
@@ -206,11 +207,14 @@ public class GalleryFragment extends Fragment implements PopupMenu.OnMenuItemCli
 
         //validamos si los permisos ya fueron aceptados
         if((getContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)&&getContext().checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED){
+
             return true;
+
         }
 
 
         if ((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)||(shouldShowRequestPermissionRationale(CAMERA)))){
+
             cargarDialogoRecomendacion();
         }else{
             requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MIS_PERMISOS);
