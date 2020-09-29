@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.claficados.R;
 import com.example.claficados.ui.gallery.GalleryFragment;
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -56,7 +58,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     View viewg;
-    BottomBarItem bottomBarItem;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -75,16 +76,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         btnPrductos = (Button)view.findViewById(R.id.Productos);
 
 
-
-        /*PopupMenu popup = new PopupMenu(getContext(), view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_foto, popup.getMenu());
-        popup.setOnMenuItemClickListener(HomeFragment.this);
-        popup.show();
-         */
-
-
-
         btnPrductos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,41 +86,12 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
             }
         });
 
-        /*
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-        final WebView webMagento=root.findViewById(R.id.webMagento);
-        webMagento.setWebViewClient(new MyWebViewClient());
-
-        WebSettings settings=webMagento.getSettings();
-        settings.setJavaScriptEnabled(true);
-        webMagento.loadUrl(url);
-
-
-        r0 =root.findViewById(R.id.radio0);
-        r1 = root.findViewById(R.id.radio1);
-        r2 = root.findViewById(R.id.radio2);
-        r3 =root.findViewById(R.id.radio3);
-        r4 = root.findViewById(R.id.radio4);
-        r5 = root.findViewById(R.id.radio5);
-
-         */
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerView);
         contador = (TextView)view.findViewById(R.id.contador);
-        int total = listCoverPageVo.size();
-        contador.setText("1-"+total);
         LinearSnapHelper snapHelper  = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
-
         request = Volley.newRequestQueue(getContext());
-
-
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -150,8 +112,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         });
 
         listCoverPageVo.clear();
-        //mImageUrls.clear();
-        //mNames.clear();
         getImages();
     }
 
@@ -206,20 +166,24 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     }
     @Override
     public void onResponse(JSONObject response) {
-        //Portada portada = null;
         JSONArray json=response.optJSONArray("portada");
+
+        /**
+         * Total del contador esto es totalmente independiemente al proceos de llamado
+         * de elementos
+         */
+        int total = json.length();
+        contador.setText("1-"+total);
+
+        /**
+         * Inicio de llamado de los elementos del servidor
+         */
 
         try {
 
             for (int i = 0; i < json.length(); i++) {
-                //portada = new Portada();
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
-
-                //portada.setUrl(jsonObject.optString("urlfoto"));
-                //portada.setNombre(jsonObject.optString("nombre"));
-                //mImageUrls.add(i,jsonObject.optString("urlfoto"));
-                //mNames.add(i,jsonObject.optString("nombre"));
                 listCoverPageVo.add(new CoverPageVo(jsonObject.optString("nombre"),
                         jsonObject.optString("urlfoto")));
 
