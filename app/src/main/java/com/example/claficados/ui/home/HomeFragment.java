@@ -30,6 +30,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.claficados.R;
+import com.example.claficados.txrx;
 import com.example.claficados.ui.gallery.GalleryFragment;
 import com.google.android.material.bottomappbar.BottomAppBar;
 
@@ -136,7 +137,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         String preferencias="asdfghjkloiuytrf";
         //pagina , reset y EOF
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
-        String url = "https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+
+        String url = txrx.GenerarURL("2", "portada", "aaiL");//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);

@@ -300,6 +300,13 @@ public class txrx  extends AsyncTask<String, Void, String> {
         }
     }
 
+    public static String GenerarURL(String user, String consulta,String protocolo){
+        String url="";
+        if (consulta=="portada"){
+         url = "https://www.comcop.co/run2.php?lleve={"+protocolo+"=por-"+user+"}";}
+        return url;
+    }
+
     public String funcionesRUD(String cadena, String operacion){
         DataOutputStream printout;
         DataInputStream input;
