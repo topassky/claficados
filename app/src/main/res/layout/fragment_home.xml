@@ -92,11 +92,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="413dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
