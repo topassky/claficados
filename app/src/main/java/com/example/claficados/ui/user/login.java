@@ -2,7 +2,6 @@ package com.example.claficados.ui.user;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +15,7 @@ import com.example.claficados.ConecionSQLiteHelper;
 import com.example.claficados.MainActivity;
 import com.example.claficados.R;
 import com.example.claficados.oi.utilities;
-import com.example.claficados.txrx;
+import com.example.claficados.oi.txrx;
 import org.json.JSONException;
 import org.json.JSONObject;
 

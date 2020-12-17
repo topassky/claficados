@@ -4,13 +4,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,20 +24,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.claficados.R;
-import com.example.claficados.txrx;
-import com.example.claficados.ui.gallery.GalleryFragment;
-import com.google.android.material.bottomappbar.BottomAppBar;
+import com.example.claficados.oi.txrx;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import me.ibrahimsn.lib.BottomBarItem;
-import me.ibrahimsn.lib.BottomBarParser;
 
 
 public class HomeFragment extends Fragment implements Response.Listener<JSONObject>,
