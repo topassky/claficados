@@ -303,10 +303,10 @@ public class txrx  extends AsyncTask<String, Void, String> {
 
     public static String GenerarURL(String user, String consulta,String protocolo){
         String url="";
-        if (consulta=="portada"){
-         url="https://www.comcop.co/Raptor?portada";
-         //url = "https://www.comcop.co/run2.php?lleve={"+protocolo+"=por-"+user+"}";
-    }return url;
+
+        url="https://www.comcop.co/Raptor?"+consulta;
+        //url = "https://www.comcop.co/run2.php?lleve={"+protocolo+"=por-"+user+"}";
+    return url;
     }
 
     public String funcionesRUD(String cadena, String operacion){
