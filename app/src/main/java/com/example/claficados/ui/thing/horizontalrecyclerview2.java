@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,10 +18,11 @@ import com.example.claficados.R;
 
 import java.util.ArrayList;
 
-public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecyclerview2.viewHolder2> {
+public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecyclerview2.viewHolder2>
+    implements View.OnClickListener {
 
     private static final String TAG = "RecyclerViewAdapter";
-
+    private View.OnClickListener listener;
     //vars
     private Context mContext2;
     ArrayList<ProductsVo> lisrProductsVo;
@@ -35,6 +37,9 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
     @Override
     public viewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lisitem_thing, parent, false);
+
+        view.setOnClickListener(this);
+
         return new viewHolder2(view);
     }
 
@@ -51,20 +56,35 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
         holder.textDescriptionBody.setText(lisrProductsVo.get(position).getmDescriptionBody());
         holder.textAdsTitle.setText(lisrProductsVo.get(position).getTextAdsTitle());
         holder.textAds.setText(lisrProductsVo.get(position).getTextAds());
-
+/**
         holder.imageViewThing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on an image: " + lisrProductsVo.get(position).getmNames2());
-                Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
+
+
             }
         });
+ **/
 
     }
 
     @Override
     public int getItemCount() {
         return lisrProductsVo.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onClick(v);
+        }
+
     }
 
     public class viewHolder2 extends RecyclerView.ViewHolder{

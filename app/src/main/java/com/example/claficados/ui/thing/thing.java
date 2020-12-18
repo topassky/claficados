@@ -1,6 +1,7 @@
 package com.example.claficados.ui.thing;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -89,12 +89,23 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
 
     }
 
-    private void initRecyclerView(View root) {
+    private void initRecyclerView(final View root) {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerViewThing);
         recyclerView.setLayoutManager(layoutManager);
         horizontalrecyclerview2 adapter2 = new horizontalrecyclerview2( getContext(),lisrProductsVo);
+        adapter2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),""+lisrProductsVo.get
+                        (recyclerView2.getChildAdapterPosition(v)).getmNames2(),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), PorductPresentation.class);
+                startActivity(intent);
+
+
+            }
+        });
         recyclerView.setAdapter(adapter2);
         Log.d(TAG, "initRecyclerView: init recyclerview");
     }

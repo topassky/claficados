@@ -1,4 +1,4 @@
-package com.example.claficados.ui.gallery;
+package com.example.claficados.ui.thing;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.claficados.R;
 
-public class CamaraActivity extends AppCompatActivity {
+public class PorductPresentation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camara);
+        setContentView(R.layout.activity_porduct_presentation);
     }
 }
