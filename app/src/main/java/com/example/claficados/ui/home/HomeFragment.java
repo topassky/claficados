@@ -30,6 +30,7 @@ import com.example.claficados.oi.txrx;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.example.claficados.oi.Globales;
 
 import java.util.ArrayList;
 
@@ -127,8 +128,9 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         String preferencias="asdfghjkloiuytrf";
         //pagina , reset y EOF
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
-
-        String url = txrx.GenerarURL("2", "portada", "aaiL");//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+        Globales consul=new Globales();
+        String filtro= consul.getConsulta();
+        String url = txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);

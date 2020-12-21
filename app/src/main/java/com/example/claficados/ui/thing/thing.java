@@ -81,7 +81,9 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
-        String url = "https://comcop.com.co/persia/include/wsJSONConsultarProductos.php";
+        String url = "https://comcop.com.co/persia/include/wsJSONConsultarProductos.php";// Cambiarlo por comcop.co
+
+        //String url= "https://http://www.comcop.co/Raptor?productos"+"&"+Filtro;
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
 
@@ -118,6 +120,7 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
 
     @Override
     public void onResponse(JSONObject response) {
+
         JSONArray json=response.optJSONArray("productos");
         lisrProductsVo =new ArrayList<>();
         try {

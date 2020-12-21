@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.example.claficados.oi.Globales;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.claficados.R;
+import com.example.claficados.oi.txrx;
 import com.example.claficados.ui.thing.ProductsVo;
 
 import java.util.ArrayList;
@@ -63,6 +65,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on an image: " + listCoverPagerVo.get(position).getmNames());
                 Toast.makeText(mContext, "indice"+listCoverPagerVo.get(position).getmNames(), Toast.LENGTH_SHORT).show();
+                Globales consul= new Globales();
+                consul.setconsulta(""+listCoverPagerVo.get(position).getmNames());
 
             }
         });
