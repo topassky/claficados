@@ -1,17 +1,13 @@
 package com.example.claficados;
 
-import android.app.Activity;
-
-import android.content.Intent;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.claficados.oi.txrx;
+import com.example.claficados.oi.Globales;
 
 public class login extends AppCompatActivity {
 

@@ -3,14 +3,16 @@ package com.example.claficados.oi;
 import android.app.Application;
 
 public class Globales extends Application {
-    private int valor;
     /////////////////////////////////////////GENERICA////////////////////////////////////////////////77
-    public void setGen(boolean estado){
-        this.valor=8;
-    }
-
-    public int getGen()  {
-        return valor;
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////77
+    private String consulta; // Vble global
+    public  String getConsulta() {
+        return consulta;
+    } // Get es leer
+    public  void setconsulta(String consulta) {
+        this.consulta = consulta;
+    } // Set es configurar
+    /////////////////////////////////////////GENERICA////////////////////////////////////////////////77
 }
+
+//Usabilidad
+//import com.example.claficados.oi.Globales;
