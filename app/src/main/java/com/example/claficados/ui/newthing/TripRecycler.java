@@ -1,4 +1,4 @@
 package com.example.claficados.ui.newthing;
 
-public class Trip {
+public class TripRecycler {
 }

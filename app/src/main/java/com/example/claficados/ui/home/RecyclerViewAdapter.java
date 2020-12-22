@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.claficados.R;
 import com.example.claficados.oi.txrx;
+import com.example.claficados.ui.newthing.NewThingVo;
 import com.example.claficados.ui.thing.ProductsVo;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mContext = mContext;
         this.listCoverPagerVo = listCoverPagerVo;
     }
+
+
 
     @NonNull
     @Override

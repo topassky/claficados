@@ -2,9 +2,6 @@ package com.example.claficados.ui.home;
 
 public class CoverPageVo {
 
-
-
-
     private String mNames;
     private String mImageUrls;
 

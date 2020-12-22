@@ -106,9 +106,15 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
                         (recyclerView2.getChildAdapterPosition(v)).getmNames2(),Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getContext(), PorductPresentation.class);
                 startActivity(intent);
+
+
+
+                /*
                 Globales consulta= new Globales();
                 consulta.setconsulta(""+lisrProductsVo.get
                         (recyclerView2.getChildAdapterPosition(v)).getmNames2());
+
+                 */
 
 
 
