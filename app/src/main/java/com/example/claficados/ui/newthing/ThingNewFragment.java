@@ -138,7 +138,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
         Globales consul=new Globales();
         String filtro= consul.getConsulta();
-        String url = txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+        String url = "https://www.comcop.co/tienda?portada&&";//txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
