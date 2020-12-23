@@ -138,7 +138,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
         Globales consul=new Globales();
         String filtro= consul.getConsulta();
-        String url = "https://www.comcop.co/tienda?portada&&";//txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+        String url = "https://www.comcop.co/tienda?Lista&&";//txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
@@ -170,14 +170,14 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     @Override
     public void onResponse(JSONObject response) {
 
-        JSONArray json=response.optJSONArray("portada");
+        JSONArray json=response.optJSONArray("producto");
         Log.d("ERROR2: ", ""+json);
         try {
 
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
-                listNewThingVo.add(new NewThingVo(jsonObject.optString("nombre"),
+                listNewThingVo.add(new NewThingVo(jsonObject.optString("Par0"),
                         jsonObject.optString("urlfoto")));
 
             }
