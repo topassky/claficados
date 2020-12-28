@@ -170,7 +170,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     @Override
     public void onResponse(JSONObject response) {
 
-        JSONArray json=response.optJSONArray("producto");
+        JSONArray json=response.optJSONArray("Lista");
         Log.d("ERROR2: ", ""+json);
         try {
 
@@ -178,7 +178,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
                 listNewThingVo.add(new NewThingVo(jsonObject.optString("Par0"),
-                        jsonObject.optString("urlfoto")));
+                        jsonObject.optString("Par1")));
 
             }
             Log.d("ERROR: ", ""+listNewThingVo);

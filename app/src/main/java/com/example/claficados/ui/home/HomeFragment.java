@@ -178,8 +178,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
-                listCoverPageVo.add(new CoverPageVo(jsonObject.optString("nombre"),
-                        jsonObject.optString("urlfoto")));
+                listCoverPageVo.add(new CoverPageVo(jsonObject.optString("Par0"),
+                        jsonObject.optString("Par1")));
 
             }
             initRecyclerView(viewg);

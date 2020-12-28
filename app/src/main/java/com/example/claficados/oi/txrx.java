@@ -305,8 +305,10 @@ public class txrx  extends AsyncTask<String, Void, String> {
 
     public static String GenerarURL(String user, String consulta,String protocolo, String Filtro){
         String url="";
-
-        url="https://www.comcop.co/tienda?"+consulta+"&"+Filtro+"&";
+        //protocolo necesita datos requeridos para manipular la información en el receptor, especifique aqui
+        //B=Buscar , A=Escribir, D=Delete (No se borran los datos, se cambia el estado)
+        //User contiene el token de actualización
+        url="https://www.comcop.co/tienda?"+consulta+"&"+Filtro+"&"+protocolo+user;
         //url = "https://www.comcop.co/run2.php?lleve={"+protocolo+"=por-"+user+"}";
     return url;
     }
