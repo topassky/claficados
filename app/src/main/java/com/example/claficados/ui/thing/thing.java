@@ -99,6 +99,7 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
         final RecyclerView recyclerView =root.findViewById(R.id.recyclerViewThing);
         recyclerView.setLayoutManager(layoutManager);
         horizontalrecyclerview2 adapter2 = new horizontalrecyclerview2( getContext(),lisrProductsVo);
+         /*
         adapter2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,17 +110,18 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
 
 
 
-                /*
+
                 Globales consulta= new Globales();
                 consulta.setconsulta(""+lisrProductsVo.get
                         (recyclerView2.getChildAdapterPosition(v)).getmNames2());
 
-                 */
 
 
 
             }
         });
+
+          */
         recyclerView.setAdapter(adapter2);
         Log.d(TAG, "initRecyclerView: init recyclerview");
     }

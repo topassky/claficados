@@ -61,7 +61,7 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on an image: " + lisrProductsVo.get(position).getmNames2());
-               // Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
 
                 Navigation.findNavController(view).navigate(R.id.thingNewFragment);
             }
