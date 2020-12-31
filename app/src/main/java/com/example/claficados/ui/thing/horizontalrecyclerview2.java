@@ -45,6 +45,11 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder2 holder, final int position) {
+        //Url para esta ventana:
+        //https://www.comcop.co/tienda?producto&&
+        //SELECT * FROM `ocaw_product_description` WHERE `product_id` = 48
+        //Json retorna 7 parámetros (Par3 es la descripción)
+        //Par0, Par1, Par2, Par3, Par4, Par5, Par6, Par7
         Glide.with(mContext2)
                 .asBitmap()
                 .load(lisrProductsVo.get(position).getmImageUrls2())
