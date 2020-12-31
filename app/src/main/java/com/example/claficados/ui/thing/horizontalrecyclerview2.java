@@ -1,4 +1,5 @@
 package com.example.claficados.ui.thing;
+import com.example.claficados.oi.Globales;
 
 import android.content.Context;
 import android.util.Log;
@@ -69,6 +70,9 @@ public class horizontalrecyclerview2 extends RecyclerView.Adapter<horizontalrecy
                Toast.makeText(mContext2, lisrProductsVo.get(position).getmNames2(), Toast.LENGTH_SHORT).show();
 
                 Navigation.findNavController(view).navigate(R.id.thingNewFragment);
+                //guardar lisrProductsVo.get(position).getmNames2() en variable global
+                Globales x=new Globales();
+                x.setconsulta(lisrProductsVo.get(position).getmNames2());
             }
         });
 

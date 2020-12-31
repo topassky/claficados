@@ -81,9 +81,11 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
         progressDialog=new ProgressDialog(getContext());
         progressDialog.setMessage("Consultado...");
         progressDialog.show();
-        String url = "https://comcop.com.co/persia/include/wsJSONConsultarProductos.php";// Cambiarlo por comcop.co
+        //String url = "https://comcop.com.co/persia/include/wsJSONConsultarProductos.php";// Cambiarlo por comcop.co
+        Globales x= new Globales();
 
-        //String url= "https://http://www.comcop.co/Raptor?productos"+"&"+Filtro;
+        String url= "https://www.comcop.co/tienda?productos&"+x.getConsulta()+"&" ;
+
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         request.add(jsonObjectRequest);
 
@@ -141,8 +143,8 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
                 //portada.setUrl(jsonObject.optString("urlfoto"));
                 //portada.setNombre(jsonObject.optString("nombre"));
                 lisrProductsVo.add(new ProductsVo(jsonObject.optString("nombre"),
-                        jsonObject.optString("urlfoto"),
-                        jsonObject.optString("descripcion"),
+                        jsonObject.optString("Par1"),
+                        jsonObject.optString("Par2"),
                         "Esto es el nombre del cuerpo",
                         "Esto es la descripción del cuerpo","Estes el decuento",
                         "Aqui se calcula el descuento"));
