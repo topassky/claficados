@@ -138,7 +138,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         lleveCMP=lleveCMP+version+"="+llaves+sesion+preferencias+"}";
         Globales consul=new Globales();
         String filtro= consul.getConsulta();
-        String url = "https://www.comcop.co/tienda?Lista&&";//txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
+        String url = "https://www.comcop.co/tienda?producto&48&";//txrx.GenerarURL("2", "portada", "aaiL", filtro);//"https://www.comcop.co/run2.php?lleve={x1=x2}";//+ lleveCMP;
         //String url = txrx.GenerarURL("2", "Lista")
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
@@ -172,7 +172,34 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     public void onResponse(JSONObject response) {
 
         JSONArray json=response.optJSONArray("Lista");
+        JSONArray jsondetalles=response.optJSONArray("detalles");
         Log.d("ERROR2: ", ""+json);
+
+        try{
+            for (int i = 0; i < jsondetalles.length(); i++) {
+                JSONObject jsonObject = null;
+                jsonObject = jsondetalles.getJSONObject(i);
+                jsonObject.optString("Par0");
+                jsonObject.optString("Par1");
+                jsonObject.optString("Par2");
+                jsonObject.optString("Par3");
+                jsonObject.optString("Par4");
+                jsonObject.optString("Par5");
+                jsonObject.optString("Par6");
+                jsonObject.optString("Par7");
+
+            }
+            Log.d("ERROR: ", ""+listNewThingVo);
+            initRecyclerView(viewg);
+
+            progressDialog.hide();
+        }catch (JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " "+response, Toast.LENGTH_LONG).show();
+            progressDialog.hide();
+        }
+
         try {
 
             for (int i = 0; i < json.length(); i++) {

@@ -26,11 +26,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
 import com.example.claficados.oi.txrx;
+import com.example.claficados.oi.Globales;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.claficados.oi.Globales;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,6 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment implements Response.Listener<JSONObject>,
         Response.ErrorListener{
 
-    String url ="https://comcop.com.co/persia";
     private static final String TAG = "MainActivity";
     ArrayList<CoverPageVo> listCoverPageVo;
 
