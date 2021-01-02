@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Featured"
+                    android:text="Categories"
                     android:textSize="18sp"
                     />
 
@@ -137,7 +137,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Featured"
+                    android:text="Best Sell"
                     android:textSize="18sp"
                     />
 
