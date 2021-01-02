@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -172,13 +173,15 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     public void onResponse(JSONObject response) {
 
         JSONArray json=response.optJSONArray("Lista");
-        JSONArray jsondetalles=response.optJSONArray("detalles");
+        JSONArray jsondetalles=response.optJSONArray("producto");
         Log.d("ERROR2: ", ""+json);
 
         try{
             for (int i = 0; i < jsondetalles.length(); i++) {
                 JSONObject jsonObject = null;
                 jsonObject = jsondetalles.getJSONObject(i);
+                //TextView texto8= (TextView) setCo(R.id.textView8);
+                //texto8.setText(jsonObject.optString("Par1"));
                 jsonObject.optString("Par0");
                 jsonObject.optString("Par1");
                 jsonObject.optString("Par2");
@@ -222,4 +225,6 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
 
     }
+
+
 }
