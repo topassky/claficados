@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
     RecyclerView recyclerView;
    // RadioButton r1,r0,r2,r3,r4,r5;
-    TextView contador;
+    TextView seeAllFe;
     Button btnPrductos;
     ProgressDialog progressDialog;
     RequestQueue request;
@@ -64,10 +64,11 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         super.onViewCreated(view, savedInstanceState);
 
         listCoverPageVo = new ArrayList<CoverPageVo>();
-        btnPrductos = (Button)view.findViewById(R.id.Productos);
+
+        seeAllFe = (TextView) view.findViewById(R.id.seeAllFe);
 
 
-        btnPrductos.setOnClickListener(new View.OnClickListener() {
+        seeAllFe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getContext(),"hola",Toast.LENGTH_SHORT).show();
@@ -78,8 +79,10 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         });
 
 
+
+
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerView);
-        contador = (TextView)view.findViewById(R.id.contador);
+        //contador = (TextView)view.findViewById(R.id.contador);
         LinearSnapHelper snapHelper  = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
         request = Volley.newRequestQueue(getContext());
@@ -93,8 +96,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
                     int position = ((LinearLayoutManager)recyclerView.getLayoutManager()).findFirstVisibleItemPosition()+1;
                     //Toast.makeText(getContext(), "indice"+position, Toast.LENGTH_SHORT).show();
-                    String numposition= position+"";
-                    contador.setText(numposition+"-"+listCoverPageVo.size());
+                    //String numposition= position+"";
+                    //contador.setText(numposition+"-"+listCoverPageVo.size());
                     //contador.setText(numposition+"-"+mImageUrls.size());
                 }
 
@@ -165,8 +168,8 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
          * Total del contador esto es totalmente independiemente al proceos de llamado
          * de elementos
          */
-        int total = json.length();
-        contador.setText("1-"+total);
+        //int total = json.length();
+        //contador.setText("1-"+total);
 
         /**
          * Inicio de llamado de los elementos del servidor
