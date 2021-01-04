@@ -1,16 +1,16 @@
 package com.example.claficados.ui.home;
 
-public class CoverPageVo {
+public class CategoryVO {
 
     private String mNames;
     private String mImageUrls;
 
-    public CoverPageVo(String mNames, String mImageUrls) {
+    public CategoryVO(String mNames, String mImageUrls) {
         this.mNames = mNames;
         this.mImageUrls = mImageUrls;
     }
 
-    public CoverPageVo() {
+    public CategoryVO() {
 
     }
     public String getmNames() {

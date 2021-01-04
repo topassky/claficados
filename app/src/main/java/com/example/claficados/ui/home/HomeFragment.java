@@ -39,15 +39,18 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         Response.ErrorListener{
 
     private static final String TAG = "MainActivity";
-    ArrayList<CoverPageVo> listCoverPageVo;
+    ArrayList<CategoryVO> listCoverPageVo;
+    ArrayList<FeatureVo> listcoverFeature;
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerView, recyclerViewCa;
    // RadioButton r1,r0,r2,r3,r4,r5;
     TextView seeAllFe;
     Button btnPrductos;
     ProgressDialog progressDialog;
     RequestQueue request;
+    RequestQueue request2;
     JsonObjectRequest jsonObjectRequest;
+    JsonObjectRequest jsonObjectRequest2;
     View viewg;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -63,7 +66,9 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listCoverPageVo = new ArrayList<CoverPageVo>();
+        listCoverPageVo = new ArrayList<CategoryVO>();
+        listcoverFeature = new ArrayList<FeatureVo>();
+
 
         seeAllFe = (TextView) view.findViewById(R.id.seeAllFe);
 
@@ -105,8 +110,14 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
 
         });
 
+        recyclerViewCa = (RecyclerView)view.findViewById(R.id.recyclerViewFeatures);
+
+
+
         listCoverPageVo.clear();
         getImages();
+
+
     }
 
     private void getImages() {
@@ -136,9 +147,12 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         //String url = "https://comcop.com.co/persia/include/wsJSONConsultarPortada.php";
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        //jsonObjectRequest2 = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+
         System.out.println("LOG CMP CA");
         System.out.println(jsonObjectRequest);
         request.add(jsonObjectRequest);
+        //request2.add(jsonObjectRequest2);
         progressDialog.hide();
     }
 
@@ -150,6 +164,17 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         recyclerView.setAdapter(adapter);
         Log.d(TAG, "initRecyclerView: init recyclerview");
         progressDialog.hide();
+    }
+
+    private void initRecyclerView2(View root) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        final RecyclerView recyclerView2 =root.findViewById(R.id.recyclerViewFeatures);
+        recyclerView2.setLayoutManager(layoutManager);
+        FeatureViewAdapter adapter = new FeatureViewAdapter( getContext(), listcoverFeature);
+        recyclerView2.setAdapter(adapter);
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+        progressDialog.hide();
+
     }
 
     @Override
@@ -180,11 +205,15 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
-                listCoverPageVo.add(new CoverPageVo(jsonObject.optString("Par0"),
+                listCoverPageVo.add(new CategoryVO(jsonObject.optString("Par0"),
                         jsonObject.optString("Par1")));
 
+                listcoverFeature.add(new FeatureVo("Camiseta","55.000","https://www.comcop.co/Raptor/images/Mask.png"));
+
             }
+
             initRecyclerView(viewg);
+            initRecyclerView2(viewg);
             progressDialog.hide();
         }catch (JSONException e) {
             e.printStackTrace();
@@ -194,9 +223,6 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
         }
 
     }
-
-
-
 
 
 

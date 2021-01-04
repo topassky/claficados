@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.claficados.oi.Globales;
@@ -16,13 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.claficados.R;
-import com.example.claficados.oi.txrx;
-import com.example.claficados.ui.newthing.NewThingVo;
-import com.example.claficados.ui.thing.ProductsVo;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
@@ -31,9 +25,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //private ArrayList<String> mNames = new ArrayList<>();
     //private ArrayList<String> mImageUrls = new ArrayList<>();
     private Context mContext;
-    ArrayList<CoverPageVo> listCoverPagerVo;
+    ArrayList<CategoryVO> listCoverPagerVo;
 
-    public RecyclerViewAdapter(Context mContext, ArrayList<CoverPageVo> listCoverPagerVo) {
+    public RecyclerViewAdapter(Context mContext, ArrayList<CategoryVO> listCoverPagerVo) {
         this.mContext = mContext;
         this.listCoverPagerVo = listCoverPagerVo;
     }

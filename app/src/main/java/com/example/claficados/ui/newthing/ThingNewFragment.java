@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,9 +24,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
 import com.example.claficados.oi.Globales;
-import com.example.claficados.oi.txrx;
-import com.example.claficados.ui.home.CoverPageVo;
-import com.example.claficados.ui.home.RecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

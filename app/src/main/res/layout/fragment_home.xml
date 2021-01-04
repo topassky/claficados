@@ -121,9 +121,9 @@
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewCa"
+                android:id="@+id/recyclerViewFeatures"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 />
         </LinearLayout>
 
