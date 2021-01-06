@@ -208,11 +208,34 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                 listCoverPageVo.add(new CategoryVO(jsonObject.optString("Par0"),
                         jsonObject.optString("Par1")));
 
-                listcoverFeature.add(new FeatureVo("Camiseta","55.000","https://www.comcop.co/Raptor/images/Mask.png"));
 
             }
 
             initRecyclerView(viewg);
+            //initRecyclerView2(viewg);
+            progressDialog.hide();
+        }catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " "+response, Toast.LENGTH_LONG).show();
+            progressDialog.hide();
+        }
+
+        JSONArray jsonfeatures=response.optJSONArray("list_feature");
+        try {
+
+            for (int i = 0; i < jsonfeatures.length(); i++) {
+                JSONObject jsonObject = null;
+                jsonObject = jsonfeatures.getJSONObject(i);
+                listcoverFeature.add(new FeatureVo(jsonObject.optString("Par3"),
+                        jsonObject.optString("Par2"),
+                        jsonObject.optString("Par1")));
+
+
+            }
+
+
+
             initRecyclerView2(viewg);
             progressDialog.hide();
         }catch (JSONException e) {
@@ -221,6 +244,9 @@ public class HomeFragment extends Fragment implements Response.Listener<JSONObje
                     " "+response, Toast.LENGTH_LONG).show();
             progressDialog.hide();
         }
+
+        //listcoverFeature.add(new FeatureVo("Camiseta","55.000","https://www.comcop.co/Raptor/images/Mask.png"));
+
 
     }
 

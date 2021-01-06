@@ -167,10 +167,10 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
     @Override
     public void onResponse(JSONObject response) {
+/*
 
-        JSONArray json=response.optJSONArray("Lista");
         JSONArray jsondetalles=response.optJSONArray("producto");
-        Log.d("ERROR2: ", ""+json);
+
 
         try{
             for (int i = 0; i < jsondetalles.length(); i++) {
@@ -198,6 +198,10 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
                     " "+response, Toast.LENGTH_LONG).show();
             progressDialog.hide();
         }
+
+ */
+
+        JSONArray json=response.optJSONArray("Lista");
 
         try {
 
