@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="@+id/divider" />
 
     <ImageView
-        android:id="@+id/UrlThingMain"
+        android:id="@+id/UrlThingMain2"
         android:layout_width="0dp"
         android:layout_height="175dp"
         android:layout_marginTop="16dp"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description_main_photo"
+        android:id="@+id/name_newthingMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -38,8 +38,8 @@
         android:text="black turtleneck top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/UrlThingMain"
-        app:layout_constraintTop_toBottomOf="@+id/UrlThingMain" />
+        app:layout_constraintStart_toStartOf="@+id/UrlThingMain2"
+        app:layout_constraintTop_toBottomOf="@+id/UrlThingMain2" />
 
     <TextView
         android:id="@+id/NewThingCost"
@@ -48,10 +48,10 @@
         android:layout_marginTop="4dp"
         android:text="$42"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="@+id/description_main_photo"
+        app:layout_constraintEnd_toEndOf="@+id/name_newthingMain"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/description_main_photo"
-        app:layout_constraintTop_toBottomOf="@+id/description_main_photo" />
+        app:layout_constraintStart_toStartOf="@+id/name_newthingMain"
+        app:layout_constraintTop_toBottomOf="@+id/name_newthingMain" />
 
     <View
         android:id="@+id/divider"

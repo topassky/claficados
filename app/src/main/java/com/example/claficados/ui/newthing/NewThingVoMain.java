@@ -2,16 +2,20 @@ package com.example.claficados.ui.newthing;
 
 public class NewThingVoMain {
     private String UrlThingMain;
-    private String description_main_photo;
+    private String name_main_photo;
     private String NewThingCost;
     private String StarsNewThingMain;
     private String QualificationNewThingMain;
     private String TituleDescriptionThingnewMain;
     private String DescriptionNewthingMain;
 
-    public NewThingVoMain(String urlThingMain, String description_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain) {
+    public NewThingVoMain(){
+
+    }
+
+    public NewThingVoMain(String urlThingMain, String name_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain) {
         UrlThingMain = urlThingMain;
-        this.description_main_photo = description_main_photo;
+        this.name_main_photo = name_main_photo;
         NewThingCost = newThingCost;
         StarsNewThingMain = starsNewThingMain;
         QualificationNewThingMain = qualificationNewThingMain;
@@ -27,12 +31,12 @@ public class NewThingVoMain {
         UrlThingMain = urlThingMain;
     }
 
-    public String getDescription_main_photo() {
-        return description_main_photo;
+    public String getName_main_photo() {
+        return name_main_photo;
     }
 
-    public void setDescription_main_photo(String description_main_photo) {
-        this.description_main_photo = description_main_photo;
+    public void setName_main_photo(String name_main_photo) {
+        this.name_main_photo = name_main_photo;
     }
 
     public String getNewThingCost() {
