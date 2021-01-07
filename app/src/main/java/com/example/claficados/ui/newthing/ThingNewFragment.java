@@ -45,7 +45,9 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     private static final String ARG_PARAM2 = "param2";
 
     ArrayList<NewThingVo> listNewThingVo;
-    RecyclerView recyclerView;
+    ArrayList<NewThingVoMain> listNewthingVoMain;
+    ArrayList<NewthingVoPhoto> listNewthingPhoto;
+    RecyclerView recyclerView, recylcerviewnewthing,recyclerphoto;
     ProgressDialog progressDialog;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -104,10 +106,15 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         super.onViewCreated(view, savedInstanceState);
 
         listNewThingVo = new ArrayList<NewThingVo>();
+        listNewthingVoMain = new ArrayList<NewThingVoMain>();
+        listNewthingPhoto = new ArrayList<NewthingVoPhoto>();
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerViewThingNews);
+        recyclerphoto = (RecyclerView)view.findViewById(R.id.recyclerphoto);
+        recylcerviewnewthing =(RecyclerView)view.findViewById(R.id.recylcerviewnewthing);
 
         request = Volley.newRequestQueue(getContext());
         listNewThingVo.clear();
+//        listNewthingVoMain.clear();
         getImages();
 
 
@@ -156,6 +163,24 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         progressDialog.hide();
     }
 
+    private void initRecyclerView2(View viewg) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        final RecyclerView recyclerView =viewg.findViewById(R.id.recylcerviewnewthing);
+        recyclerView.setLayoutManager(layoutManager);
+        AdaptadorNewthingMain adapter = new AdaptadorNewthingMain(getContext(),listNewthingVoMain);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void initRecyclerViewphoto(View viewg) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        final RecyclerView recyclerView =viewg.findViewById(R.id.recyclerphoto);
+        recyclerView.setLayoutManager(layoutManager);
+        AdatadorNewPhoto adapter = new AdatadorNewPhoto(getContext(),listNewthingPhoto);
+        recyclerView.setAdapter(adapter);
+    }
+
+
+
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No se puede conectar "+error.toString(), Toast.LENGTH_LONG).show();
@@ -167,39 +192,63 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
     @Override
     public void onResponse(JSONObject response) {
-/*
 
-        JSONArray jsondetalles=response.optJSONArray("producto");
+        JSONArray jsonphoto=response.optJSONArray("Lista");
 
+        try {
 
-        try{
-            for (int i = 0; i < jsondetalles.length(); i++) {
+            for (int i = 0; i < jsonphoto.length(); i++) {
                 JSONObject jsonObject = null;
-                jsonObject = jsondetalles.getJSONObject(i);
-                //TextView texto8= (TextView) setCo(R.id.textView8);
-                //texto8.setText(jsonObject.optString("Par1"));
-                jsonObject.optString("Par0");
-                jsonObject.optString("Par1");
-                jsonObject.optString("Par2");
-                jsonObject.optString("Par3");
-                jsonObject.optString("Par4");
-                jsonObject.optString("Par5");
-                jsonObject.optString("Par6");
-                jsonObject.optString("Par7");
+                jsonObject = jsonphoto.getJSONObject(i);
+                listNewthingPhoto.add(new NewthingVoPhoto(
+                        "https://www.comcop.co//Raptor//images//Mask.png"));
 
             }
             Log.d("ERROR: ", ""+listNewThingVo);
-            initRecyclerView(viewg);
+            initRecyclerViewphoto(viewg);
 
             progressDialog.hide();
-        }catch (JSONException e){
+        }catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
                     " "+response, Toast.LENGTH_LONG).show();
             progressDialog.hide();
         }
 
- */
+
+
+        JSONArray jsondetalles = response.optJSONArray("producto");
+
+
+        try {
+            for (int i = 0; i < jsondetalles.length(); i++) {
+                JSONObject jsonObject = null;
+                jsonObject = jsondetalles.getJSONObject(i);
+
+
+                listNewthingVoMain.add(new NewThingVoMain(
+                        "hola",
+                        "hola",
+                        "hola",
+                        "hola",
+                        "hola",
+                        "hola"));
+
+            }
+            Log.d("ERROR: ", "" + "Estoy aqui");
+            initRecyclerView2(viewg);
+
+            progressDialog.hide();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(), "No se ha podido establecer conexión con el servidor" +
+                    " " + response, Toast.LENGTH_LONG).show();
+            progressDialog.hide();
+        }
+
+
+
+
 
         JSONArray json=response.optJSONArray("Lista");
 
@@ -208,8 +257,8 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
             for (int i = 0; i < json.length(); i++) {
                 JSONObject jsonObject = null;
                 jsonObject = json.getJSONObject(i);
-                listNewThingVo.add(new NewThingVo(jsonObject.optString("Par0"),
-                        jsonObject.optString("Par1")));
+                listNewThingVo.add(new NewThingVo("hola",
+                        "https://www.comcop.co//Raptor//images//Mask.png"));
 
             }
             Log.d("ERROR: ", ""+listNewThingVo);
@@ -225,6 +274,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
 
     }
+
 
 
 }

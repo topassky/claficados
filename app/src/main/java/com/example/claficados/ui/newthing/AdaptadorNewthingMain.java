@@ -20,7 +20,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
     ArrayList<NewThingVoMain> listNewThingVoMain;
     private Context mContext;
 
-    public AdaptadorNewthingMain(ArrayList<NewThingVoMain> listNewThingVoMain, Context mContext) {
+    public AdaptadorNewthingMain( Context mContext, ArrayList<NewThingVoMain> listNewThingVoMain) {
         this.listNewThingVoMain = listNewThingVoMain;
         this.mContext = mContext;
     }
@@ -35,10 +35,13 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
 
     @Override
     public void onBindViewHolder(@NonNull ViewNewthingMain holder, int position) {
+        /*
         Glide.with(mContext)
                 .asBitmap()
                 .load(listNewThingVoMain.get(position).getUrlThingMain())
                 .into(holder.UrlThingMain2);
+
+         */
         holder.name_main_photo.setText(listNewThingVoMain.get(position).getName_main_photo());
         holder.NewThingCost.setText(listNewThingVoMain.get(position).getNewThingCost());
         holder.StarsNewThingMain.setText(listNewThingVoMain.get(position).getStarsNewThingMain());
@@ -54,7 +57,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
 
     public class ViewNewthingMain extends RecyclerView.ViewHolder {
 
-        ImageView UrlThingMain2;
+        //ImageView UrlThingMain2;
         TextView name_main_photo;
         TextView NewThingCost;
         TextView StarsNewThingMain;
@@ -64,7 +67,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
 
         public ViewNewthingMain(@NonNull View itemView) {
             super(itemView);
-            UrlThingMain2 =(ImageView) itemView.findViewById(R.id.UrlThingMain2);
+            //UrlThingMain2 =(ImageView) itemView.findViewById(R.id.UrlThingMain2);
             name_main_photo = (TextView) itemView.findViewById(R.id.name_newthingMain);
             NewThingCost = (TextView) itemView.findViewById(R.id.NewThingCost);
             StarsNewThingMain = (TextView) itemView.findViewById(R.id.StarsNewThingMain);

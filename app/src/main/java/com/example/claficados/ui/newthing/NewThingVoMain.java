@@ -1,7 +1,7 @@
 package com.example.claficados.ui.newthing;
 
 public class NewThingVoMain {
-    private String UrlThingMain;
+    //private String UrlThingMain;
     private String name_main_photo;
     private String NewThingCost;
     private String StarsNewThingMain;
@@ -13,8 +13,7 @@ public class NewThingVoMain {
 
     }
 
-    public NewThingVoMain(String urlThingMain, String name_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain) {
-        UrlThingMain = urlThingMain;
+    public NewThingVoMain(String name_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain) {
         this.name_main_photo = name_main_photo;
         NewThingCost = newThingCost;
         StarsNewThingMain = starsNewThingMain;
@@ -23,13 +22,7 @@ public class NewThingVoMain {
         DescriptionNewthingMain = descriptionNewthingMain;
     }
 
-    public String getUrlThingMain() {
-        return UrlThingMain;
-    }
 
-    public void setUrlThingMain(String urlThingMain) {
-        UrlThingMain = urlThingMain;
-    }
 
     public String getName_main_photo() {
         return name_main_photo;
