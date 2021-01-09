@@ -233,8 +233,8 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
                         itemproducto.getString("Par0"),
                         itemproducto.getString("Par0"),
                         itemproducto.getString("Par0"),
-                        itemproducto.getString("Par0"),
-                        itemdetalle.getString("Par0")));
+                        itemdetalle.getString("Par0"),
+                        itemproducto.getString("Par0")));
 
             }
             Log.d("ERROR: ", "" + "Estoy aqui");
