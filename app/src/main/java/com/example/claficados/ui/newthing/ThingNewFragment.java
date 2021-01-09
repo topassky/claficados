@@ -217,23 +217,24 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
 
 
-        JSONArray jsondetalles = response.optJSONArray("producto");
-
+        JSONArray jsonproducto = response.optJSONArray("producto");
+        JSONArray jsondetalles = response.optJSONArray("detalles");
 
         try {
             for (int i = 0; i < jsondetalles.length(); i++) {
-                JSONObject jsonObject = null;
-                jsonObject = jsondetalles.getJSONObject(i);
-
+                JSONObject itemproducto = null;
+                itemproducto = jsonproducto.getJSONObject(i);
+                JSONObject itemdetalle = null;
+                itemdetalle = jsondetalles.getJSONObject(i);
 
                 listNewthingVoMain.add(new NewThingVoMain(
-                        "hola1",
-                        "hola2",
-                        "hola3",
-                        "hola4",
-                        "hola5",
-                        "hola6",
-                "hola7"));
+                        itemproducto.getString("Par0"),
+                        itemproducto.getString("Par0"),
+                        itemproducto.getString("Par0"),
+                        itemproducto.getString("Par0"),
+                        itemproducto.getString("Par0"),
+                        itemproducto.getString("Par0"),
+                        itemdetalle.getString("Par0")));
 
             }
             Log.d("ERROR: ", "" + "Estoy aqui");
