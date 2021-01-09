@@ -227,12 +227,13 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
 
 
                 listNewthingVoMain.add(new NewThingVoMain(
-                        "hola",
-                        "hola",
-                        "hola",
-                        "hola",
-                        "hola",
-                        "hola"));
+                        "hola1",
+                        "hola2",
+                        "hola3",
+                        "hola4",
+                        "hola5",
+                        "hola6",
+                "hola7"));
 
             }
             Log.d("ERROR: ", "" + "Estoy aqui");

@@ -48,6 +48,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
         holder.QualificationNewThingMain.setText(listNewThingVoMain.get(position).getQualificationNewThingMain());
         holder.TituleDescriptionThingnewMain.setText(listNewThingVoMain.get(position).getTituleDescriptionThingnewMain());
         holder.DescriptionNewthingMain.setText(listNewThingVoMain.get(position).getDescriptionNewthingMain());
+        holder.reviews.setText(listNewThingVoMain.get(position).getReviwes());
     }
 
     @Override
@@ -64,6 +65,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
         TextView QualificationNewThingMain;
         TextView TituleDescriptionThingnewMain;
         TextView DescriptionNewthingMain;
+        TextView reviews;
 
         public ViewNewthingMain(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +76,7 @@ public class AdaptadorNewthingMain extends RecyclerView.Adapter<AdaptadorNewthin
             QualificationNewThingMain = (TextView) itemView.findViewById(R.id.QualificationNewThingMain);
             TituleDescriptionThingnewMain = (TextView) itemView.findViewById(R.id.TituleDescriptionThingnewMain);
             DescriptionNewthingMain = (TextView) itemView.findViewById(R.id.DescriptionNewthingMain);
+            reviews = (TextView) itemView.findViewById(R.id.comentarios);
 
         }
     }

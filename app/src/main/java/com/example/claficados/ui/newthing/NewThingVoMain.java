@@ -8,21 +8,30 @@ public class NewThingVoMain {
     private String QualificationNewThingMain;
     private String TituleDescriptionThingnewMain;
     private String DescriptionNewthingMain;
+    private String Reviwes;
+
 
     public NewThingVoMain(){
 
     }
 
-    public NewThingVoMain(String name_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain) {
+    public NewThingVoMain(String name_main_photo, String newThingCost, String starsNewThingMain, String qualificationNewThingMain, String tituleDescriptionThingnewMain, String descriptionNewthingMain, String reviwes) {
         this.name_main_photo = name_main_photo;
         NewThingCost = newThingCost;
         StarsNewThingMain = starsNewThingMain;
         QualificationNewThingMain = qualificationNewThingMain;
         TituleDescriptionThingnewMain = tituleDescriptionThingnewMain;
         DescriptionNewthingMain = descriptionNewthingMain;
+        Reviwes = reviwes;
     }
 
+    public String getReviwes() {
+        return Reviwes;
+    }
 
+    public void setReviwes(String reviwes) {
+        Reviwes = reviwes;
+    }
 
     public String getName_main_photo() {
         return name_main_photo;
