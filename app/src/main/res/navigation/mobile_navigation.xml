@@ -45,5 +45,23 @@
         android:id="@+id/thingNewFragment"
         android:name="com.example.claficados.ui.newthing.ThingNewFragment"
         android:label="fragment_thing_new"
-        tools:layout="@layout/fragment_home_thing" />
+        tools:layout="@layout/fragment_home_thing" >
+        <action
+            android:id="@+id/action_thingNewFragment_to_adress"
+            app:destination="@id/adress" />
+    </fragment>
+    <fragment
+        android:id="@+id/adress"
+        android:name="com.example.claficados.ui.adress.adress"
+        android:label="fragment_adress"
+        tools:layout="@layout/fragment_adress" >
+        <action
+            android:id="@+id/action_adress_to_addAdress"
+            app:destination="@id/addAdress" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAdress"
+        android:name="com.example.claficados.ui.adress.AddAdress"
+        android:label="fragment_add_adress"
+        tools:layout="@layout/fragment_add_adress" />
 </navigation>

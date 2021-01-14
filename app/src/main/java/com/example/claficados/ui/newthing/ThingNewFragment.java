@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ThingNewFragment extends Fragment implements Response.Listener<JSONObject>,
-        Response.ErrorListener{
+        Response.ErrorListener, View.OnClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +54,7 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     View viewg;
+    Button BUY_CARD;
 
 
     // TODO: Rename and change types of parameters
@@ -111,6 +114,10 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
         recyclerView =(RecyclerView)view.findViewById(R.id.recyclerViewThingNews);
         recyclerphoto = (RecyclerView)view.findViewById(R.id.recyclerphoto);
         recylcerviewnewthing =(RecyclerView)view.findViewById(R.id.recylcerviewnewthing);
+        BUY_CARD = (Button)view.findViewById(R.id.buttonBUYCARD);
+        BUY_CARD.setOnClickListener(this);
+
+
 
         request = Volley.newRequestQueue(getContext());
         listNewThingVo.clear();
@@ -278,5 +285,10 @@ public class ThingNewFragment extends Fragment implements Response.Listener<JSON
     }
 
 
+    @Override
+    public void onClick(View v) {
+        Navigation.findNavController(v).navigate(R.id.adress);
 
+
+    }
 }

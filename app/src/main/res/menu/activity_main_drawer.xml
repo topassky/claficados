@@ -24,5 +24,9 @@
             android:id="@+id/thingNewFragment"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/thing_new_fragment" />
+        <item
+            android:id="@+id/adress"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/direcciones" />
     </group>
 </menu>
