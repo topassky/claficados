@@ -17,12 +17,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.claficados.R;
 
@@ -31,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +56,12 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
     ArrayAdapter<String> countryAdapter;
     ArrayAdapter<String> cityAdapter;
     ArrayAdapter<String> IdAdapter;
-    RequestQueue requestQueue;
+    RequestQueue requestQueue, request;
+
+    EditText Add_adress_name, Add_adress_Postal_Code, Add_adress_Number;
+    Button Add_adress_btn;
+
+    StringRequest stringRequest;
 
 
     // TODO: Rename and change types of parameters
@@ -101,10 +110,74 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        Add_adress_name = (EditText)view. findViewById(R.id.Add_adress_name);
+        Add_adress_Postal_Code = (EditText)view .findViewById(R.id.Add_adress_Postal_Code);
+        Add_adress_Number = (EditText)view. findViewById(R.id.Add_adress_Number);
+
         requestQueue = Volley.newRequestQueue(getContext());
+        request = Volley.newRequestQueue(getContext());
         spinnerCountry = (Spinner)view.findViewById(R.id.spinner_coutry);
         spinnerZone = (Spinner)view.findViewById(R.id.spiner_Zone);
         spinnerId = (Spinner)view.findViewById(R.id.spinnerId);
+        Add_adress_btn = (Button)view.findViewById(R.id.Add_adress_btn);
+
+        Add_adress_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cargar_web_service();
+            }
+        });
+
+        Zone();
+
+
+    }
+
+    private void cargar_web_service(){
+        String url = "https://comcop.co/mypythonapp/address";
+
+
+
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.equalsIgnoreCase("registra")){
+                    Add_adress_name.setText("");
+                    Add_adress_Postal_Code.setText("");
+                    Add_adress_Number.setText("");
+                    Toast.makeText(getContext(), "Se registro existozamente", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "No registro", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error"+ error , Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String address = Add_adress_name.getText().toString();
+                String Postal_Code = Add_adress_Postal_Code.getText().toString();
+                String Number = Add_adress_Number.getText().toString();
+
+                Map <String,String> parameters = new HashMap<>();
+                parameters.put("address",address);
+                parameters.put("Postal_Code",Postal_Code);
+                parameters.put("Number",Number);
+
+                return parameters;
+            }
+        };
+        request.add(stringRequest);
+    }
+
+    private void Zone() {
+
 
         String url = "https://www.comcop.co/tienda?Pais&&";
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -149,7 +222,6 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
 
         requestQueue.add(jsonObjectRequest);
         spinnerCountry.setOnItemSelectedListener(this);
-
 
 
     }
