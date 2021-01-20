@@ -91,10 +91,10 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
 
         <EditText
-            android:id="@+id/Add_adress_Postal_Code"
+            android:id="@+id/Add_adress_City"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="number" />
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
         <EditText
-            android:id="@+id/Add_adress_Number"
+            android:id="@+id/Add_code_postal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number" />

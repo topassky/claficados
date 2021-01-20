@@ -58,10 +58,13 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
     ArrayAdapter<String> IdAdapter;
     RequestQueue requestQueue, request;
 
-    EditText Add_adress_name, Add_adress_Postal_Code, Add_adress_Number;
+    EditText Add_adress_name, Add_adress_City, Add_code_postal;
     Button Add_adress_btn;
 
     StringRequest stringRequest;
+    double SelectedCountryglobal;
+    double SelectZone;
+
 
 
     // TODO: Rename and change types of parameters
@@ -111,8 +114,8 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
         super.onViewCreated(view, savedInstanceState);
 
         Add_adress_name = (EditText)view. findViewById(R.id.Add_adress_name);
-        Add_adress_Postal_Code = (EditText)view .findViewById(R.id.Add_adress_Postal_Code);
-        Add_adress_Number = (EditText)view. findViewById(R.id.Add_adress_Number);
+        Add_adress_City = (EditText)view .findViewById(R.id.Add_adress_City);
+        Add_code_postal = (EditText)view. findViewById(R.id.Add_code_postal);
 
         requestQueue = Volley.newRequestQueue(getContext());
         request = Volley.newRequestQueue(getContext());
@@ -143,8 +146,8 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
             public void onResponse(String response) {
                 if(response.equalsIgnoreCase("registra")){
                     Add_adress_name.setText("");
-                    Add_adress_Postal_Code.setText("");
-                    Add_adress_Number.setText("");
+                    Add_adress_City.setText("");
+                    Add_code_postal.setText("");
                     Toast.makeText(getContext(), "Se registro existozamente", Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getContext(), "No registro", Toast.LENGTH_SHORT).show();
@@ -162,14 +165,17 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 String address = Add_adress_name.getText().toString();
-                String Postal_Code = Add_adress_Postal_Code.getText().toString();
-                String Number = Add_adress_Number.getText().toString();
+                String city = Add_adress_City.getText().toString();
+                String Numberpostal = Add_code_postal.getText().toString();
+                double SelectedCountryglobal2 = SelectedCountryglobal;
+                double SelectZone2 = SelectZone;
 
                 Map <String,String> parameters = new HashMap<>();
                 parameters.put("address",address);
-                parameters.put("Postal_Code",Postal_Code);
-                parameters.put("Number",Number);
-
+                parameters.put("city",city);
+                parameters.put("Numberpostal",Numberpostal);
+                parameters.put("Country",""+SelectedCountryglobal2);
+                parameters.put("Zone",""+SelectZone2);
                 return parameters;
             }
         };
@@ -222,6 +228,7 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
 
         requestQueue.add(jsonObjectRequest);
         spinnerCountry.setOnItemSelectedListener(this);
+        spinnerZone.setOnItemSelectedListener(this);
 
 
     }
@@ -229,42 +236,51 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if (parent.getId() == R.id.spinner_coutry) {
+                zoneList.clear();
+                SelectedCountryglobal = parent.getSelectedItemId()+1;
+                Toast.makeText(getContext(), ""+SelectedCountryglobal, Toast.LENGTH_SHORT).show();
+                String selectedCountry = IdList.get(position);
+                String url = "https://www.comcop.co/tienda?Region&" + selectedCountry + "&";
+                requestQueue = Volley.newRequestQueue(getContext());
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                        url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("Region");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                String ZoneName = jsonObject.optString("Par2");
+                                zoneList.add(ZoneName);
+                                cityAdapter = new ArrayAdapter<>(getContext(),
+                                        R.layout.support_simple_spinner_dropdown_item, zoneList);
+                                cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+                                spinnerZone.setAdapter(cityAdapter);
+                            }
 
-            zoneList.clear();
-            String selectedCountry = IdList.get(position);
-            Toast.makeText(getContext(), ""+selectedCountry, Toast.LENGTH_SHORT).show();
-            String url = "https://www.comcop.co/tienda?Region&" + selectedCountry + "&";
-            requestQueue = Volley.newRequestQueue(getContext());
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
-                    url, null, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("Region");
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String ZoneName = jsonObject.optString("Par2");
-                            zoneList.add(ZoneName);
-                            cityAdapter = new ArrayAdapter<>(getContext(),
-                                    R.layout.support_simple_spinner_dropdown_item, zoneList);
-                            cityAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-                            spinnerZone.setAdapter(cityAdapter);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                requestQueue.add(jsonObjectRequest);
+            }
+            else if (parent.getId() == R.id.spiner_Zone){
+               // Toast.makeText(getContext(), "Estoy aqui"  , Toast.LENGTH_SHORT).show();
+                SelectZone = parent.getSelectedItemId()+1;
+
+            }
 
 
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-
-                }
-            });
-            requestQueue.add(jsonObjectRequest);
 
         }
 
