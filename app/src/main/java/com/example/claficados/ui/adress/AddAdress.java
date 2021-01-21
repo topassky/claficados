@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AddAdress#newInstance} factory method to
@@ -52,6 +55,8 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
     ArrayList<String> countryList = new ArrayList<>();
     ArrayList<String> zoneList = new ArrayList<>();
     ArrayList<String> IdList = new ArrayList<>();
+    ArrayList<String> arrayZone = new ArrayList<>();
+
 
     ArrayAdapter<String> countryAdapter;
     ArrayAdapter<String> cityAdapter;
@@ -62,8 +67,8 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
     Button Add_adress_btn;
 
     StringRequest stringRequest;
-    double SelectedCountryglobal;
-    double SelectZone;
+    String SelectedCountryglobal;
+    String SelectZone;
 
 
 
@@ -167,8 +172,8 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
                 String address = Add_adress_name.getText().toString();
                 String city = Add_adress_City.getText().toString();
                 String Numberpostal = Add_code_postal.getText().toString();
-                double SelectedCountryglobal2 = SelectedCountryglobal;
-                double SelectZone2 = SelectZone;
+                String SelectedCountryglobal2 = SelectedCountryglobal;
+                String SelectZone2 = SelectZone;
 
                 Map <String,String> parameters = new HashMap<>();
                 parameters.put("address",address);
@@ -236,11 +241,12 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (parent.getId() == R.id.spinner_coutry) {
+
+
                 zoneList.clear();
-                SelectedCountryglobal = parent.getSelectedItemId()+1;
+                SelectedCountryglobal = IdList.get(position);
                 Toast.makeText(getContext(), ""+SelectedCountryglobal, Toast.LENGTH_SHORT).show();
-                String selectedCountry = IdList.get(position);
+                final String selectedCountry = IdList.get(position);
                 String url = "https://www.comcop.co/tienda?Region&" + selectedCountry + "&";
                 requestQueue = Volley.newRequestQueue(getContext());
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -252,6 +258,7 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String ZoneName = jsonObject.optString("Par2");
+
                                 zoneList.add(ZoneName);
                                 cityAdapter = new ArrayAdapter<>(getContext(),
                                         R.layout.support_simple_spinner_dropdown_item, zoneList);
@@ -272,17 +279,68 @@ public class AddAdress extends Fragment implements AdapterView.OnItemSelectedLis
 
                     }
                 });
+
+            spinnerZone.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, final int position, long id) {
+                    arrayZone.clear();
+                    String url = "https://www.comcop.co/tienda?Region&" + selectedCountry + "&";
+                    requestQueue = Volley.newRequestQueue(getContext());
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                            url, null, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                JSONArray jsonArray = response.getJSONArray("Region");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String ZoneName = jsonObject.optString("Par0");
+
+                                    arrayZone.add(ZoneName);
+
+                                }
+                                SelectZone = arrayZone.get(position);
+
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+                    requestQueue.add(jsonObjectRequest);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+
                 requestQueue.add(jsonObjectRequest);
+
             }
+            /*
             else if (parent.getId() == R.id.spiner_Zone){
                // Toast.makeText(getContext(), "Estoy aqui"  , Toast.LENGTH_SHORT).show();
                 SelectZone = parent.getSelectedItemId()+1;
 
             }
 
+             */
 
 
-        }
+
+
 
 
 

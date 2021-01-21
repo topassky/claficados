@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/adress"
-        android:name="com.example.claficados.ui.adress.adress"
+        android:name="com.example.claficados.ui.adress.adressMain"
         android:label="fragment_adress"
         tools:layout="@layout/fragment_adress" >
         <action
