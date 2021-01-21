@@ -58,10 +58,18 @@
         <action
             android:id="@+id/action_adress_to_addAdress"
             app:destination="@id/addAdress" />
+        <action
+            android:id="@+id/action_adress_to_payment"
+            app:destination="@id/payment" />
     </fragment>
     <fragment
         android:id="@+id/addAdress"
         android:name="com.example.claficados.ui.adress.AddAdress"
         android:label="fragment_add_adress"
         tools:layout="@layout/fragment_add_adress" />
+    <fragment
+        android:id="@+id/payment"
+        android:name="com.example.claficados.ui.payment.Payment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
 </navigation>

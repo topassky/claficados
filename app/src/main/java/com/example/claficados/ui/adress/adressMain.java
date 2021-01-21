@@ -120,6 +120,13 @@ public class adressMain extends Fragment implements Response.ErrorListener, Resp
             }
         });
 
+        BtnContinueToPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.payment);
+            }
+        });
+
         request = Volley.newRequestQueue(getContext());
         listAddress.clear();
 
