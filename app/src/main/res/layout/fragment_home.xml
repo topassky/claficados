@@ -69,7 +69,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/seeAllFe"
+                    android:id="@+id/seeAllCate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -106,7 +106,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/seeAllCa"
+                    android:id="@+id/seeAllFe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"

@@ -143,12 +143,13 @@ public class thing extends Fragment implements Response.Listener<JSONObject>, Re
 
                 //portada.setUrl(jsonObject.optString("urlfoto"));
                 //portada.setNombre(jsonObject.optString("nombre"));
-                lisrProductsVo.add(new ProductsVo(jsonObject.optString("Par0"),
+                lisrProductsVo.add(new ProductsVo(jsonObject.optString("Par2"),
                         jsonObject.optString("Par1"),
-                        jsonObject.optString("Par2"),
-                        "Esto es el nombre del cuerpo",
-                        "Esto es la descripción del cuerpo","Estes el decuento",
-                        "Aqui se calcula el descuento"));
+                        jsonObject.optString("Par3"),
+                        jsonObject.optString("Par8"),
+                        jsonObject.optString("Par9"),
+                        jsonObject.optString("Par7")+"%",
+                        jsonObject.optString("Par6")));
 
 
             }

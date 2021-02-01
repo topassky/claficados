@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,9 +23,11 @@
             android:id="@+id/textTrip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="0"
@@ -32,13 +35,14 @@
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <TextView
             android:id="@+id/textTripTitle"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:shadowColor="@android:color/black"
             android:shadowDx="0"
             android:shadowDy="0"
@@ -46,7 +50,9 @@
             android:textColor="@android:color/white"
             android:textSize="28sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/textTrip"/>
+            app:layout_constraintBottom_toTopOf="@+id/textTrip"
+            app:layout_constraintEnd_toEndOf="@+id/textTrip"
+            app:layout_constraintStart_toStartOf="@+id/textTrip" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

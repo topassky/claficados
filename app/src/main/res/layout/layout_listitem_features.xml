@@ -15,14 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="55 $"
-        android:textSize="24sp"
+        android:textSize="18sp"
         />
     <TextView
         android:id="@+id/f_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Woman T-Shirt"
-        android:textSize="24sp"
+        android:textSize="18sp"
         />
 
 
